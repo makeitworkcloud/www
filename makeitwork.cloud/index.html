@@ -395,6 +395,7 @@ kRndcACtiohsXTkmfXA6sBmpR+gM9dX+wUwOiqvXe+XFneZ7rC5u7gnRHNc=
 
   <!-- Random Jam Section -->
   <section class="w3-padding-64 w3-content w3-text-grey" id="jam" style="margin-bottom: 100vh;">
+      <p id="video"></p>
       <script>
         const videos = [
           "CHlp5SR80_E?si=U1A8enGtrSElhWqy&amp;start=106",
@@ -404,7 +405,7 @@ kRndcACtiohsXTkmfXA6sBmpR+gM9dX+wUwOiqvXe+XFneZ7rC5u7gnRHNc=
         const randomIndex = Math.floor(Math.random() * videos.length);
         const videoId = videos[randomIndex];
         document.getElementById("video").innerHTML =
-          `<p><iframe style="display: block; margin 0 auto;" width="280" height="157" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe></p>`;
+          `<iframe style="display: block; margin 0 auto;" width="280" height="157" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
       </script>
   </section>
   <!-- End Random Jam Section -->
