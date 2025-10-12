@@ -393,9 +393,21 @@ kRndcACtiohsXTkmfXA6sBmpR+gM9dX+wUwOiqvXe+XFneZ7rC5u7gnRHNc=
   <!-- End Contact Section -->
   </section>
 
+  <!-- Random Jam Section -->
   <section class="w3-padding-64 w3-content w3-text-grey" id="jam" style="margin-bottom: 100vh;">
-    <p><iframe style="display: block; margin: 0 auto;" width="280" height="157" src="https://www.youtube.com/embed/CHlp5SR80_E?si=U1A8enGtrSElhWqy&amp;start=106" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></p>
+      <script>
+        const videos = [
+          "CHlp5SR80_E?si=U1A8enGtrSElhWqy&amp;start=106",
+          "Rish18_5O9A?si=WW_pKTWwZypfd29Z&amp;start=16",
+          "TpCS56f7zXA?si=g0NJ4VruawVDmfz9&amp;start=41"
+        ];
+        const randomIndex = Math.floor(Math.random() * videos.length);
+        const videoId = videos[randomIndex];
+        document.getElementById("video").innerHTML =
+          `<p><iframe style="display: block; margin 0 auto;" width="280" height="157" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe></p>`;
+      </script>
   </section>
+  <!-- End Random Jam Section -->
 
 <!-- END PAGE CONTENT -->
 </div>
