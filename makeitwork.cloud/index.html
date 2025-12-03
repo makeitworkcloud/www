@@ -1,418 +1,454 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-<title>Make IT Work</title>
-<meta charset="UTF-8">
-<meta name="description" content="Make IT Work Cloud">
-<meta name="keywords" content="Make IT Work, AWS, Cloudflare, MEGA, Cloud, Automation, Red Hat, Ansible, Docker, Kubernetes, OpenShift, DevOps, CICD, GitOps">
-<meta name="author" content="steven@makeitwork.cloud">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="onion-location" content="http://rjtzwqhdxaadyfsopbjggrjlicfyas7gxiwdupqp6pawwjmfuu7tsnqd.onion" />
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-2021.css">
-<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-2020.css">
-<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-flat.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Permanent+Marker">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Press+Start+2P">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bebas+Neue">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-<style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
-.w3-row-padding img {margin-bottom: 12px}
-.w3-sidebar {width: 120px;background: #222;}
-#main {margin-left: 120px}
-@media only screen and (max-width: 600px) {#main {margin-left: 0}}
-@keyframes main {
-  0%   {color: #FFF;}
-  25%  {color: #999;}
-  50%  {color: #FFF;}
-  75%  {color: #999;}
-  100% {color: #FFF;}
-}
-@keyframes logo {
-  0%   {color: #FFF;}
-  25%  {color: #555;}
-  50%  {color: #AAA;}
-  75%  {color: #555;}
-  100% {color: #FFF;}
-}
-.hover-underline-animation {
-  display: inline-block;
-  position: relative;
-  color: #F1F1F1;
-}
-.hover-underline-animation::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  transform: scaleX(0);
-  height: 1px;
-  bottom: 0;
-  left: 0;
-  background-color: #F1F1F1;
-  transform-origin: bottom right;
-  transition: transform 0.25s ease-out;
-}
-.hover-underline-animation:hover::after {transform: scaleX(1); transform-origin: bottom left;}
-#access a:link, #access a:visited {text-decoration: none;}
-#access a:hover {text-decoration: none;}
-#access a:active {text-decoration: none;}
-.accessbutton {font-family: "Bebas Neue", cursive; padding: 20px; width: 100%; margin-bottom: 20px;}
-.navbar {font-family: "Bebas Neue", cursive}
-</style>
+  <title>Make IT Work</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="Make IT Work Cloud - DevOps Portal">
+  <meta name="keywords" content="Make IT Work, AWS, Cloudflare, DevOps, Ansible, Kubernetes, OpenShift, GitOps">
+  <meta name="author" content="steven@makeitwork.cloud">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="onion-location" content="http://rjtzwqhdxaadyfsopbjggrjlicfyas7gxiwdupqp6pawwjmfuu7tsnqd.onion" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <style>
+    :root {
+      --bg-dark: #0a0a0a;
+      --bg-card: #111111;
+      --bg-card-hover: #1a1a1a;
+      --gold-dim: #8b7355;
+      --gold: #c9a227;
+      --gold-bright: #ffd700;
+      --gold-glow: rgba(201, 162, 39, 0.4);
+      --text-dim: #555;
+      --text-muted: #888;
+      --text-light: #ccc;
+      --border-dim: #222;
+      --border-gold: #3d3520;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Fira Code', monospace;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+    }
+
+    /* ASCII Art Header */
+    .cloud-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeIn 1s ease-out forwards;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    .subheader {
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      letter-spacing: 0.15em;
+    }
+
+    .ascii-art {
+      color: var(--gold-dim);
+      font-size: 0.65rem;
+      line-height: 1.15;
+      white-space: pre;
+      text-shadow: 0 0 10px var(--gold-glow);
+      animation: flicker 32s ease-in-out infinite;
+      overflow: hidden;
+    }
+
+    @media (max-width: 1100px) {
+      .ascii-art {
+        font-size: 0.52rem;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .ascii-art {
+        font-size: 0.42rem;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .ascii-art {
+        font-size: 0.32rem;
+      }
+    }
+
+    @media (max-width: 550px) {
+      .ascii-art {
+        font-size: 0.25rem;
+      }
+    }
+
+    /* Cloud Resources Grid */
+    .portal {
+      width: 100%;
+      max-width: 900px;
+      opacity: 0;
+      animation: fadeIn 1s ease-out 0.3s forwards;
+    }
+
+    .portal-border {
+      border: 1px solid var(--border-gold);
+      padding: 1.5rem;
+      background: 
+        linear-gradient(135deg, var(--border-gold) 0%, transparent 50%),
+        linear-gradient(-135deg, var(--border-gold) 0%, transparent 50%),
+        var(--bg-dark);
+      background-size: 20px 20px, 20px 20px, 100% 100%;
+      background-position: top left, top right, center;
+      background-repeat: no-repeat;
+    }
+
+    .portal-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-dim);
+    }
+
+    .contact-icons {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .contact-icon {
+      color: var(--text-dim);
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      padding: 0.4rem;
+    }
+
+    .contact-icon:hover {
+      color: var(--gold);
+      text-shadow: 0 0 12px var(--gold-glow);
+      transform: translateY(-2px);
+    }
+
+    .contact-icon svg {
+      width: 1.1rem;
+      height: 1.1rem;
+      fill: currentColor;
+      vertical-align: middle;
+    }
+
+    .resource-icon svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      fill: currentColor;
+      vertical-align: middle;
+    }
+
+    /* Resource Grid */
+    .resource-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    @media (min-width: 480px) {
+      .resource-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 768px) {
+      .resource-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+      }
+    }
+
+    /* Individual Resource Card */
+    .resource {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-dim);
+      text-decoration: none;
+      color: var(--text-light);
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    .resource::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--gold-dim);
+      transform: scaleY(0);
+      transition: transform 0.3s ease;
+    }
+
+    .resource:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-gold);
+      box-shadow: 
+        0 0 20px rgba(201, 162, 39, 0.1),
+        inset 0 0 30px rgba(201, 162, 39, 0.03);
+      transform: translateY(-2px);
+    }
+
+    .resource:hover::before {
+      transform: scaleY(1);
+      background: var(--gold);
+      box-shadow: 0 0 10px var(--gold-glow);
+    }
+
+    .resource-icon {
+      font-size: 1.25rem;
+      color: var(--gold-dim);
+      width: 1.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .resource:hover .resource-icon {
+      color: var(--gold-bright);
+      text-shadow: 0 0 15px var(--gold-glow);
+    }
+
+    .resource-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .resource-name {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-light);
+      margin-bottom: 0.15rem;
+      transition: color 0.3s ease;
+    }
+
+    .resource:hover .resource-name {
+      color: var(--gold);
+    }
+
+    .resource-cmd {
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      font-weight: 600;
+    }
+
+    .resource-cmd::before {
+      content: '$ ';
+      color: var(--gold-dim);
+      font-weight: 600;
+    }
+
+    /* WARP Note */
+    .warp-note {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      padding-top: 1rem;
+      margin-top: 1rem;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .warp-note span {
+      color: var(--gold-dim);
+    }
+
+
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes flicker {
+      0% { text-shadow: 0 0 10px var(--gold-glow); opacity: 0.75; }
+      5% { text-shadow: 0 0 12px var(--gold-glow); opacity: 0.85; }
+      10% { text-shadow: 0 0 8px var(--gold-glow); opacity: 0.7; }
+      15% { text-shadow: 0 0 18px var(--gold-glow), 0 0 25px rgba(201, 162, 39, 0.15); opacity: 0.95; }
+      20% { text-shadow: 0 0 10px var(--gold-glow); opacity: 0.8; }
+      25% { text-shadow: 0 0 14px var(--gold-glow); opacity: 0.88; }
+      30% { text-shadow: 0 0 9px var(--gold-glow); opacity: 0.72; }
+      35% { text-shadow: 0 0 20px var(--gold-glow), 0 0 30px rgba(201, 162, 39, 0.2); opacity: 1; }
+      40% { text-shadow: 0 0 11px var(--gold-glow); opacity: 0.78; }
+      45% { text-shadow: 0 0 7px var(--gold-glow); opacity: 0.68; }
+      50% { text-shadow: 0 0 15px var(--gold-glow); opacity: 0.9; }
+      55% { text-shadow: 0 0 10px var(--gold-glow); opacity: 0.76; }
+      60% { text-shadow: 0 0 22px var(--gold-glow), 0 0 35px rgba(201, 162, 39, 0.25); opacity: 1; }
+      65% { text-shadow: 0 0 12px var(--gold-glow); opacity: 0.82; }
+      70% { text-shadow: 0 0 8px var(--gold-glow); opacity: 0.7; }
+      75% { text-shadow: 0 0 16px var(--gold-glow); opacity: 0.92; }
+      80% { text-shadow: 0 0 10px var(--gold-glow); opacity: 0.74; }
+      85% { text-shadow: 0 0 13px var(--gold-glow); opacity: 0.86; }
+      90% { text-shadow: 0 0 9px var(--gold-glow); opacity: 0.71; }
+      95% { text-shadow: 0 0 17px var(--gold-glow), 0 0 28px rgba(201, 162, 39, 0.18); opacity: 0.96; }
+      100% { text-shadow: 0 0 10px var(--gold-glow); opacity: 0.75; }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-dark);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-gold);
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--gold-dim);
+    }
+  </style>
 </head>
-<body class="w3-black">
+<body>
 
-<!-- Icon Bar (Sidebar - hidden on small screens) -->
-<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
-  <!-- Avatar image in top left corner -->
-  <img src="design_small.jpg" alt="MAKE IT WORK" style="width:100%">
-  <a href="#" class="w3-bar-item w3-button w3-padding-large w3-black">
-    <i class="fa fa-home w3-xxlarge"></i>
-    <p>HOME</p>
-  </a>
-  <a href="#info" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-info-circle w3-xxlarge"></i>
-    <p>INFO</p>
-  </a>
-  <a href="#access" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-eye w3-xxlarge"></i>
-    <p>ACCESS</p>
-  </a>
-  <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-envelope w3-xxlarge"></i>
-    <p>CONTACT</p>
-  </a>
-</nav>
-
-<!-- Navbar on small screens (Hidden on medium and large screens) -->
-<div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
-  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-small w3-center w3-mobile">
-    <a href="#" class="w3-bar-item w3-button" style="width:25%">HOME</a>
-    <a href="#info" class="w3-bar-item w3-button" style="width:25%">INFO</a>
-    <a href="#access" class="w3-bar-item w3-button" style="width:25%">ACCESS</a>
-    <a href="#contact" class="w3-bar-item w3-button" style="width:25%">CONTACT</a>
-  </div>
-</div>
-
-<!-- Page Content -->
-<div class="w3-padding-large" id="main">
-  <!-- Begin header -->
-  <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
-  <!-- Home -->
-    <h1 class="w3-jumbo" style="text-shadow: #333 2px 2px 0; font-family: 'Permanent Marker', sans-serif; animation-name: main; animation-iteration-count: infinite; animation-duration: 45s; animation-direction: alternate;">Make IT Work</h1>
-    <p class="w3-wide" style="animation-name: logo; animation-iteration-count: infinite; animation-duration: 21s; animation-direction: alternate;">Upon hearing this, the employee was enlightened.</p>
-    <div style="margin: auto;"><pre class="w3-animate-fading" style="margin-top: 20vh; margin-left: auto; margin-right: auto; margin-bottom: 100vh; text-shadow: #AAA 0 0 5px; font-size: 0.4vw; font-weight: bold;">
-                                                                                                                                                                                             ..                                                                                                             
-                                                                                                              .   ....'.                                                               ........,;,.                                                                                                         
-                                                                                                      .   ..... .cxOOOK0d;.   .'.                                              ..   .:dOO0KOo;..,xkc..                                                                                                      
-                                                                                                      .',c;;l'.;xXWMMWNNO;..   :d:.                                          .ol. .:kNMMMWNXd'.. .kNkl;..                                                                                                   
-                                                                                                      ..cdlkx.,dx0NWWXKx:.     .dXx.                                       .c0K: .oxkKWWWX0d,.    :XX0o'.                                                                                                   
-                                                                                                       .oxdXo .;:ccllc:,.       ;XNd.                                      :KM0, .;::ccll:;'      ,0NKx,                                                                                                    
-                                                                                                       .cxd0x. .......          :XKx;                                     .oKWNc   ......         :XNKo.                                                                                                    
-                                                                                                        'oxk0:  .......        ,0NOkl.                                     :ONM0'   .......      'ONXx;.                                                                                                    
-                                                                                                         'oxO0o.  .......    .lKNOxd,                                       ;kNW0:    .....    .:0X0x;.                                                                                                     
-                                                                                                          .,lkK0o;.       .,o0NKko:.                                         .cONNOc'.      .'lOX0x:.                                                                                                       
-                                                                                                             .;lxkxddoodxk0K0xc,... ..                                    .    .cxOXX0kxdooddxkd:'.                                                                                                         
-                                                                                                                  ..,;:::;;'........                                       ........',;:::;,'..                                                                                                              
-                                                                                                                         ..........                                         ..........                                                                                                                      
-                                                                                                                         ..........                                         ...........                                                                                                                     
-                                                                                                                          ........                                           .........                                                                                                                      
-                                                                                                                                                                                                                                                                                                            
-                                                                                                                                                    ........                                                                                                                                                
-                                                                                                                                                 ..............                                                                                                                                             
-                                                                                                                                               .................                                                                                                                                            
-                                                                                                                                              ....................        ..                                                                                                                                
-                                                                                                                             .........      ...'''''',,'''''''''...      .......                                                                                                                            
-                                                                                                                    ..................     .........................     ..........                                                                                                                         
-                                                                                                        .......''''''''''''............    ...                    ..    ...............                                                                                                                     
-                                                                                                 ...''...'''''''',,,,,,''...............       .                       ............................                                                                                                         
-                                                                                             ..............'''',,,,''''''''...............      ..           ..      ...................'',',,''''''''.....                                                                                                 
-                                                                                         ...........''.....................''................     ..        .      ....................''''''.........'''''''...                                                                                            
-                                                                                       ..............   ....... ...'''''''''''''...............           .     ....................................................                                                                                        
-                                                                                          ......            ....'''',,,,'''''''..................             ..................',;;;;;,'......             ...........                                                                                     
-                                                                                        .....          .....''...',,;;;,'.........................           ......................',;::::cc:;,....             .....  ...                                                                                  
-                                                                                                  ...........,;;;;,,;::;,''.......................           ..............................',;;:::;,..              ..                                                                                      
-                                                                                              ......    ..',,,,,;;;;;;;,,'......................               ..................''........    ...',,,,'..                                                                                                  
-                                                                                          ......    .',,,'''',,,,,'.',;,''.........''.......                       ................''',,'''..         ..',,,'..                                                                                             
-                                                                                       .....    ..';;'....''..'..';;,''..........'.....                                 ...............',,,,,''..          ..,;;'..                                                                                         
-                                                                                    ....      ..,,.....'......',','...............                .........                ..............'','.,,''..           ..,;,...                                                                                     
-                                                                                 ....      ..''.....'........','. ...........'.               ................                ... ..... .........''....           ..','...                                                                                  
-                                                                               ...       ............  .....'.   ...... ......             ......................               ..   ...   ...............           ...'....                                                                               
-                                                                            ....       ............  ........   .. ..  ..  ..                 .................                  ..    ...      ... ........            .......                                                                             
-                                                                          ...        ............  .. ... ..   .  ..      ..                                                      ..     ...      ..   ..  ...             .......                                                                          
-                                                                       ...         ... ........  ..  ..  ..   .  .        .                                                        ..      ..      ..    ..  ...             .......                                                                        
-                                                                     ...         ..  ........   .   ..   .      .         .                                                         .       ..      ..     ..   ..             ...  ...                                                                     
-                                                                   ...         ...  .......         .          .                                                                    ..        .      .       ..  ...              ..  ...                                                                   
-                                                                 ..          ...     .....                                                                                           .        ..      .        .   ...              ..   ..                                                                 
-                                                                            ..      . ..                                                                                                       .                     ..               ..   ..                                                               
-                                                                           .         ..                                                                                                                               ..                ..    .                                                             
-                                                                                                                                                                                                                        ..                                                                                  
-                                                                                                                                                                                                                          .                                                                                 
-                                                                                                                                                                                                                                                                                                            </pre></div>
+  <!-- Header with ASCII Art -->
+  <header class="cloud-header">
+    <pre class="ascii-art"> ██████   ██████   █████████   █████   ████ ██████████    █████ ███████████    █████   ███   █████    ███████    ███████████   █████   ████
+░░██████ ██████   ███░░░░░███ ░░███   ███░ ░░███░░░░░█   ░░███ ░█░░░███░░░█   ░░███   ░███  ░░███   ███░░░░░███ ░░███░░░░░███ ░░███   ███░ 
+ ░███░█████░███  ░███    ░███  ░███  ███    ░███  █ ░     ░███ ░   ░███  ░     ░███   ░███   ░███  ███     ░░███ ░███    ░███  ░███  ███   
+ ░███░░███ ░███  ░███████████  ░███████     ░██████       ░███     ░███        ░███   ░███   ░███ ░███      ░███ ░██████████   ░███████    
+ ░███ ░░░  ░███  ░███░░░░░███  ░███░░███    ░███░░█       ░███     ░███        ░░███  █████  ███  ░███      ░███ ░███░░░░░███  ░███░░███   
+ ░███      ░███  ░███    ░███  ░███ ░░███   ░███ ░   █    ░███     ░███         ░░░█████░█████░   ░░███     ███  ░███    ░███  ░███ ░░███  
+ █████     █████ █████   █████ █████ ░░████ ██████████    █████    █████          ░░███ ░░███      ░░░███████░   █████   █████ █████ ░░████
+░░░░░     ░░░░░ ░░░░░   ░░░░░ ░░░░░   ░░░░ ░░░░░░░░░░    ░░░░░    ░░░░░            ░░░   ░░░         ░░░░░░░    ░░░░░   ░░░░░ ░░░░░   ░░░░</pre>
+    <p class="subheader">Upon hearing this, the employee was enlightened.</p>
   </header>
 
-  <!-- Info Section -->
-  <section class="w3-padding-64 w3-content" id="info" style="margin-bottom: 100vh;">
-    <h2 class="w3-text-light-grey">Info</h2>
-    <hr style="width:200px" class="w3-opacity">
-
-    <div style="margin: auto;"><pre style="word-wrap: break-word; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; margin-left: auto; margin-right: auto;">
-Onion services available at:
-<a href="https://onion.makeitwork.cloud">https://onion.makeitwork.cloud</a>
-
-Site operated by Steven Welch/RSA, steven@makeitwork.cloud
-Verify site PGP key using:
-<a href="https://makeitwork.cloud/pgp.txt">https://makeitwork.cloud/pgp.txt</a>
-<a href="http://rjtzwqhdxaadyfsopbjggrjlicfyas7gxiwdupqp6pawwjmfuu7tsnqd.onion/pgp.txt">http://rjtzwqhdxaadyfsopbjggrjlicfyas7gxiwdupqp6pawwjmfuu7tsnqd.onion/pgp.txt</a>
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-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
-=7lpB
------END PGP PUBLIC KEY BLOCK-----
-  </pre></div>
-  </section>
-
-  <!-- Access Section -->
-  <section class="w3-padding-64 w3-content" id="access" style="margin-bottom: 100vh;">
-    <h2 class="w3-text-light-grey">Access</h2>
-    <hr style="width:200px" class="w3-opacity">
-
-    <!-- Access link buttons -->
-    <div class="w3-mobile">
-      <!-- Divider for buttons -->
-      <div class="w3-row-padding w3-container" style="margin:0 -16px">
-        <div class="w3-third">
-          <a class="w3-button w3-2020-navy-blazer w3-grayscale-raw w3-ripple w3-round-large w3-xlarge w3-wide accessbutton" href="https://ansible.makeitwork.cloud/" title="Ansible"><i class="fa-brands fa-redhat"></i> Ansible</a>
-        </div>
-        <div class="w3-third">
-          <a class="w3-button w3-2020-navy-blazer w3-grayscale-raw w3-ripple w3-round-large w3-xlarge w3-wide accessbutton" href="https://makeitwork.cloud/github" title="GitHub"><i class="fa-brands fa-github"></i> GitHub</a>
-        </div>
-        <div class="w3-third">
-          <a class="w3-button w3-2020-navy-blazer w3-grayscale-raw w3-ripple w3-round-large w3-xlarge w3-wide accessbutton" href="https://grafana.makeitwork.cloud/" title="Grafana"><i class="fa-regular fa-eye"></i> Grafana</a>
-        </div>
-        <div class="w3-third">
-          <a class="w3-button w3-2020-navy-blazer w3-grayscale-raw w3-ripple w3-round-large w3-xlarge w3-wide accessbutton" href="https://onion.makeitwork.cloud" title="Onions"><i class="fa fa-list"></i> Onions</a>
-        </div>
-        <div class="w3-third">
-          <a class="w3-button w3-2020-navy-blazer w3-grayscale-raw w3-ripple w3-round-large w3-xlarge w3-wide accessbutton" href="https://keys.openpgp.org/search?q=steven%40makeitwork.cloud" title="GnuPG"><i class="fa fa-key"></i> OpenPGP</a>
-        </div>
-        <div class="w3-third">
-          <a class="w3-button w3-2020-navy-blazer w3-grayscale-raw w3-ripple w3-round-large w3-xlarge w3-wide accessbutton" href="https://console-openshift-console.apps.makeitwork.cloud/" title="OpenShift Console"><i class="fa-brands fa-redhat"></i> OpenShift*</a>
-        </div>
-        <div class="w3-third">
-          <a class="w3-button w3-2020-navy-blazer w3-grayscale-raw w3-ripple w3-round-large w3-xlarge w3-wide accessbutton" href="https://plex.makeitwork.cloud" title="Plex"><i class="fa-solid fa-play"></i> Plex</a>
-        </div>
-        <div class="w3-third">
-          <a class="w3-button w3-2020-navy-blazer w3-grayscale-raw w3-ripple w3-round-large w3-xlarge w3-wide accessbutton" href="https://makeitwork.cloud/public" title="Public"><i class="fa fa-cloud-download"></i> Public</a>
-        </div>
-        <div class="w3-third">
-          <a class="w3-button w3-2020-navy-blazer w3-grayscale-raw w3-ripple w3-round-large w3-xlarge w3-wide accessbutton" href="https://status.makeitwork.cloud/" title="Public"><i class="fa-solid fa-chart-simple"></i> Status</a>
-        </div>
-        <div class="w3-third">
-          <a class="w3-button w3-2020-navy-blazer w3-grayscale-raw w3-ripple w3-round-large w3-xlarge w3-wide accessbutton" href="https://makeitworkcloud.cloudflareaccess.com/warp" title="WARP"><i class="fa-brands fa-cloudflare"></i> WARP</a>
-        </div>
+  <!-- Cloud Resources Grid -->
+  <main class="portal">
+    <div class="portal-border">
+      <div class="portal-header">
+        <nav class="contact-icons">
+          <a class="contact-icon" href="mailto:steven@makeitwork.cloud" title="Email"><i class="fa fa-envelope"></i></a>
+          <a class="contact-icon" href="https://github.com/xnoto" title="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a class="contact-icon" href="https://linkedin.com/in/welch-makeitwork/" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+          <a class="contact-icon" href="https://mega.nz/C!Kws3DD7J" title="MEGA"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm6 18h-3.5v-7.5L12 15l-2.5-4.5V18H6V6h3.5l2.5 4.5L14.5 6H18v12z"/></svg></a>
+        </nav>
       </div>
-      <b>*</b> <i>Requires WARP</i>
+
+      <div class="resource-grid">
+        <a class="resource" href="https://ansible.makeitwork.cloud/" title="Ansible Automation Platform">
+          <i class="fa-brands fa-redhat resource-icon"></i>
+          <div class="resource-content">
+            <div class="resource-name">Ansible</div>
+            <div class="resource-cmd">ansible-playbook</div>
+          </div>
+        </a>
+
+        <a class="resource" href="https://makeitwork.cloud/github" title="GitHub Organization">
+          <i class="fa-brands fa-github resource-icon"></i>
+          <div class="resource-content">
+            <div class="resource-name">GitHub</div>
+            <div class="resource-cmd">git pull</div>
+          </div>
+        </a>
+
+        <a class="resource" href="https://grafana.makeitwork.cloud/" title="Grafana Observability">
+          <span class="resource-icon"><svg viewBox="0 0 351 365" xmlns="http://www.w3.org/2000/svg"><path d="M342 161.2a127.9 127.9 0 0 0-13-45.9 139 139 0 0 0-27-37 53 53 0 0 0-6.2-37.9 56 56 0 0 0-36.5 9.4l-2.3-1a138 138 0 0 0-32.3-8.9l-2-.3A68 68 0 0 0 189.8 1c-27.3 17.3-32.4 41.5-32.4 41.5l-.3 1.4-4.5 1.3-6.2 2.2a161 161 0 0 0-18.4 8.5q-5.8 3.3-11.4 7.1l-1-.4c-37.8-14.4-71.3 2.9-71.3 2.9A103 103 0 0 0 63 135.6l-2.5 7.5a173 173 0 0 0-6.7 32.3C18.8 192.7 8.5 228 8.5 228c29.1 33.5 63.1 35.6 63.1 35.6l.1-.1A154 154 0 0 0 94 293.7c-10.6 30.4 1.5 55.6 1.5 55.6a91 91 0 0 0 58.2-17.7q4.8 1.7 9.8 2.9a143 143 0 0 0 38 4.6h3.6l1.6-.1v.1c15.3 21.8 42.1 24.9 42.1 24.9a67 67 0 0 0 20.2-44.4v-1.8q6-4.2 11.4-9.1 11.5-10.4 19.9-23.3l1.5-2.4c21.6 1.2 36.9-13.4 36.9-13.4a56 56 0 0 0-19.1-35.6l-.3-.2-.2-.2-.5-.3.3-4.1q.3-3.7.2-7.3v-3.8l-.1-1.5-.1-2-.2-1.9-.2-1.9-.2-1.9-.3-1.9a96 96 0 0 0-12.4-34.6 92 92 0 0 0-41.4-36.7 91 91 0 0 0-38.4-7.9h-3.2l-1.6.1-1.7.1q-3.3.3-6.5.9a71 71 0 0 0-58.3 65.2l-.1 5.2v1.3l.1 1.4.2 2.5a55 55 0 0 0 23.4 39.9 54 54 0 0 0 29.5 9.1h2.6l.9-.1 1.5-.1.4-.1.5-.1.9-.1 1.7-.3 1.6-.4q1.6-.4 3.1-.9 3-1 5.7-2.4t5-3l1.3-1a4 4 0 0 0 .6-5.3 4 4 0 0 0-4.7-.9l-1.2.6a33 33 0 0 1-9 3l-2.5.3-1.3.1h-2.4l-1.5-.1h-.6l-.7-.1-1.4-.2a39 39 0 0 1-21-9.8 38 38 0 0 1-12.6-29l.1-1.8v-.8l.1-.9.5-3.6a48 48 0 0 1 34.1-37.6q3.8-1 7.8-1.4l4-.2h3.1l1.1.1q4.3.3 8.5 1.3a60 60 0 0 1 40.4 31.2q4.1 8 5.5 16.9l.5 4.5.1 1.1.1 1.1v4.3l-.1 2.6a81 81 0 0 1-5.4 23.7q-3.6 9-9.4 17.1a77 77 0 0 1-49 30.4q-4.8.9-9.8 1h-5l-5.3-.3a105 105 0 0 1-40.1-11.5 103 103 0 0 1-54-83.1l-.1-1.3v-8.9a120 120 0 0 1 5-30.7q2.9-10.1 7.1-19.3a109 109 0 0 1 28.9-38 102 102 0 0 1 19.5-12l2.1-.9 2.1-.9q4.2-1.8 8.7-3.1l2.2-.7 2.2-.6 4.5-1.1 2.3-.5 2.3-.5 2.3-.4 1.1-.2 1.2-.2 2.3-.3 2.6-.3 2.6-.3 1.6-.2 1.1-.1.5-.1h.6l2.6-.2 1.3-.1h1l2.2-.1a129 129 0 0 1 25.8 1.9 120 120 0 0 1 56.3 26.8l1.4 1.2 1.3 1.2 2.6 2.4 2.5 2.4 2.4 2.5a131 131 0 0 1 21.3 29.9l.6 1.2.6 1.2 1.1 2.4 1.1 2.3 1 2.3q1.9 4.5 3.3 8.6 2.2 6.6 3.5 11.7a3 3 0 0 0 3 2.1 3 3 0 0 0 2.6-2.8q.2-5.4-.5-12.8"/></svg></span>
+          <div class="resource-content">
+            <div class="resource-name">Grafana</div>
+            <div class="resource-cmd">grafanactl resources push</div>
+          </div>
+        </a>
+
+        <a class="resource" href="https://onion.makeitwork.cloud" title="Onion Services Directory">
+          <span class="resource-icon"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50 5c-2 0-4 2-5 5-1 2-2 5-2 8 0 2 0 4 1 6-8 2-15 6-20 12-6 6-9 14-9 23 0 10 4 19 11 26s17 11 27 11 19-4 26-11 11-16 11-26c0-9-3-17-9-23-5-6-12-10-20-12 1-2 1-4 1-6 0-3-1-6-2-8-1-3-3-5-5-5zm2 25c7 0 13 3 18 8s7 11 7 18-2 14-7 19-11 8-18 8-14-3-19-8-7-12-7-19 2-13 7-18 12-8 19-8m0 8c-5 0-10 2-13 6-4 4-6 9-6 14s2 10 6 14c3 4 8 6 13 6s10-2 14-6 5-9 5-14a18.7 18.7 0 0 0-19-20m0 8c3 0 6 1 8 4 2 2 3 5 3 8q0 4.5-3 9c-2 2-5 3-8 3s-6-1-8-3c-2-3-4-6-4-9s2-6 4-8c2-3 5-4 8-4m0 7c-1 0-3 1-4 2s-1 3-1 4c0 2 0 3 1 4s3 2 4 2c2 0 3-1 4-2s2-2 2-4c0-1-1-3-2-4s-2-2-4-2"/></svg></span>
+          <div class="resource-content">
+            <div class="resource-name">Onions</div>
+            <div class="resource-cmd">tor --hash-password</div>
+          </div>
+        </a>
+
+        <a class="resource" href="https://keys.openpgp.org/search?q=steven%40makeitwork.cloud" title="OpenPGP Keys">
+          <i class="fa fa-key resource-icon"></i>
+          <div class="resource-content">
+            <div class="resource-name">OpenPGP</div>
+            <div class="resource-cmd">gpg --verify</div>
+          </div>
+        </a>
+
+        <a class="resource" href="https://console-openshift-console.apps.makeitwork.cloud/" title="OpenShift Console">
+          <i class="fa-brands fa-redhat resource-icon"></i>
+          <div class="resource-content">
+            <div class="resource-name">OpenShift*</div>
+            <div class="resource-cmd">oc login</div>
+          </div>
+        </a>
+
+        <a class="resource" href="https://plex.makeitwork.cloud" title="Plex Media Server">
+          <span class="resource-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.6 0H4.7l7.7 12-7.7 12h7l7.6-12z"/></svg></span>
+          <div class="resource-content">
+            <div class="resource-name">Plex</div>
+            <div class="resource-cmd">yt-dlp --all-subs</div>
+          </div>
+        </a>
+
+        <a class="resource" href="https://makeitwork.cloud/public" title="Public Files">
+          <i class="fa fa-cloud-download resource-icon"></i>
+          <div class="resource-content">
+            <div class="resource-name">Public</div>
+            <div class="resource-cmd">mega-cmd</div>
+          </div>
+        </a>
+
+        <a class="resource" href="https://status.makeitwork.cloud/" title="Status Dashboard">
+          <i class="fa-solid fa-chart-simple resource-icon"></i>
+          <div class="resource-content">
+            <div class="resource-name">Status</div>
+            <div class="resource-cmd">uptime</div>
+          </div>
+        </a>
+
+        <a class="resource" href="https://makeitworkcloud.cloudflareaccess.com/warp" title="Cloudflare WARP">
+          <i class="fa-brands fa-cloudflare resource-icon"></i>
+          <div class="resource-content">
+            <div class="resource-name">WARP</div>
+            <div class="resource-cmd">warp-cli connect</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="warp-note">
+        <span>*</span> OpenShift requires WARP tunnel connection
+      </div>
     </div>
+  </main>
 
-    <!-- Mobile split for Portal and Tools -->
-    <div class="w3-row-padding w3-container" style="margin:0 -16px">
-      <!-- Portal -->
-      <div class="w3-half w3-margin-bottom">
-        <h3 class="w3-padding-24 w3-text-light-grey w3-center">Portal &nbsp;&nbsp;&nbsp; <i class="fa fa-external-link-square w3-opacity"></i></h3>
-        <ul class="w3-ul w3-2021-inkwell">
-          <li class="w3-bar">
-            <a href="https://console.aws.amazon.com/" title="AWS Management Console">
-            <i class="fa-brands fa-aws w3-bar-item w3-mobile w3-xlarge"></i>
-            <div class="w3-bar-item w3-mobile">
-              <span class="hover-underline-animation">AWS Management Console</span>
-            </div>
-            </a>
-          </li>
-          <li class="w3-bar">
-            <a href="https://dash.cloudflare.com/" title="Cloudflare Dashboard">
-            <i class="fa-brands fa-cloudflare w3-bar-item w3-mobile w3-xlarge"></i>
-            <div class="w3-bar-item w3-mobile">
-              <span class="hover-underline-animation">Cloudflare Dashboard</span>
-            </div>
-            </a>
-          </li>
-          <li class="w3-bar">
-            <a href="https://www.ifixit.com/" title="iFixit">
-            <i class="fa fa-wrench w3-bar-item w3-mobile w3-xlarge"></i>
-            <div class="w3-bar-item w3-mobile">
-              <span class="hover-underline-animation">iFixit</span>
-            </div>
-            </a>
-          </li>
-          <li class="w3-bar">
-            <a href="https://mega.nz/login" title="MEGA">
-            <i class="fa fa-cloud-download w3-bar-item w3-mobile w3-xlarge"></i>
-            <div class="w3-bar-item w3-mobile">
-              <span class="hover-underline-animation">MEGA</span>
-            </div>
-            </a>
-          </li>
-          <li class="w3-bar">
-            <a href="https://ap.www.namecheap.com/" title="Namecheap Account Panel">
-            <i class="fa fa-chain w3-bar-item w3-mobile w3-xlarge"></i>
-            <div class="w3-bar-item w3-mobile">
-              <span class="hover-underline-animation">Namecheap Account Panel</span>
-            </div>
-            </a>
-          </li>
-          <li class="w3-bar">
-            <a href="https://console.redhat.com/" title="Red Hat Console">
-            <i class="fa-brands fa-redhat w3-bar-item w3-mobile w3-xlarge"></i>
-            <div class="w3-bar-item w3-mobile">
-              <span class="hover-underline-animation">Red Hat Console</span>
-            </div>
-            </a>
-          </li>
-        </ul>
-      <!-- End Portal -->
-      </div>
-
-      <!-- Tools -->
-      <div class="w3-half">
-        <h3 class="w3-padding-24 w3-text-light-grey w3-center">Tools &nbsp;&nbsp;&nbsp; <i class="fa fa-cogs w3-opacity"></i></h3>
-        <ul class="w3-ul w3-2021-inkwell">
-          <li class="w3-bar">
-            <a href="https://health.aws.amazon.com/health/status" title="AWS Health Dashboard">
-            <i class="fa-brands fa-aws w3-bar-item w3-mobile w3-xlarge"></i>
-            <div class="w3-bar-item w3-mobile">
-              <span class="hover-underline-animation">AWS Health Dashboard</span>
-            </div>
-            </a>
-          </li>
-          <li class="w3-bar">
-            <a href="https://www.awsspeedtest.com/latency" title="AWS Latency Test">
-            <i class="fa-brands fa-aws w3-bar-item w3-mobile w3-xlarge"></i>
-            <div class="w3-bar-item w3-mobile">
-              <span class="hover-underline-animation">AWS Latency Test</span>
-            </div>
-            </a>
-          </li>
-          <li class="w3-bar">
-            <a href="https://www.cloudflarestatus.com/" title="Cloudflare Status">
-            <i class="fa-brands fa-cloudflare w3-bar-item w3-mobile w3-xlarge"></i>
-            <div class="w3-bar-item w3-mobile">
-              <span class="hover-underline-animation">Cloudflare Status</span>
-            </div>
-            </a>
-          </li>
-          <li class="w3-bar">
-            <a href="https://www.cloudping.co/" title="CloudPing - AWS Latency Monitoring">
-            <i class="fa-brands fa-aws w3-bar-item w3-mobile w3-xlarge"></i>
-            <div class="w3-bar-item w3-mobile">
-              <span class="hover-underline-animation">CloudPing - AWS Latency Monitoring</span>
-            </div>
-            </a>
-          </li>
-          <li class="w3-bar">
-            <a href="https://speed.cloudflare.com/" title="Internet Speed Test (Cloudflare)">
-            <i class="fa-brands fa-cloudflare w3-bar-item w3-mobile w3-xlarge"></i>
-            <div class="w3-bar-item w3-mobile">
-              <span class="hover-underline-animation">Internet Speed Test</span>
-            </div>
-            </a>
-          </li>
-	      </ul>
-      <!-- End Tools -->
-      </div>
-    <!-- End Mobile split for Portal and Tools -->
-    </div>
-  <!-- End Portfolio Section -->
-  </section>
-
-  <!-- Contact Section -->
-  <section class="w3-padding-64 w3-content w3-text-grey" id="contact" style="margin-bottom: 100vh;">
-    <h2 class="w3-text-light-grey">Contact</h2>
-    <hr style="width:200px" class="w3-opacity">
-
-    <div class="w3-section">
-      <p><a href="https://www.google.com/maps/place/Calhan,+CO+80808/" title="Calhan, Colorado US"><i class="fa fa-map-marker fa-fw w3-text-white w3-xxlarge w3-margin-right"></i></a> Calhan, Colorado US</p>
-      <p><a href="mailto:steven@makeitwork.cloud"><i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"></i></a> Email: steven@makeitwork.cloud</p>
-      <p><a href="https://github.com/xnoto" title="GitHub"><i class="fa-brands fa-github fa-fw w3-text-white w3-xxlarge w3-margin-right"></i></a> GitHub: <a href="https://github.com/xnoto">https://github.com/xnoto</a></p>
-      <p><a href="https://linkedin.com/in/welch-makeitwork/" title="LinkedIn"><i class="fab fa-linkedin fa-fw w3-text-white w3-xxlarge w3-margin-right"></i></a> LinkedIn: <a href="https://linkedin.com/in/welch-makeitwork/">https://linkedin.com/in/welch-makeitwork/</a></p>
-      <p><a href="https://mega.nz/C!Kws3DD7J" title="MEGA"><i class="fa fa-cloud fa-fw w3-text-white w3-xxlarge w3-margin-right"></i></a> MEGA: <a href="https://mega.nz/C!Kws3DD7J">https://mega.nz/C!Kws3DD7J</a></p>
-      <p><a href="tel:1-719-421-9613"><i class="fa fa-phone fa-fw w3-text-white w3-xxlarge w3-margin-right"></i></a> Phone: +1 (719) 421-9613</p>
-    </div><br>
-  <!-- End Contact Section -->
-  </section>
-
-  <!-- Random Jam Section -->
-  <section class="w3-padding-64 w3-content w3-text-grey" id="jam" style="margin-bottom: 100vh;">
-      <p id="video"></p>
-      <script>
-        const videos = [
-          "CHlp5SR80_E?playlist=CHlp5SR80_E&amp;loop=1&amp;start=106",
-          "Rish18_5O9A?playlist=Rish18_5O9A&amp;loop=1&amp;start=16",
-          "TpCS56f7zXA?playlist=TpCS56f7zXA&amp;loop=1&amp;start=41",
-          "hOXKX0muDb0?playlist=hOXKX0muDb0&amp;loop=1&amp;start=35",
-          "zCA8P399E-o?playlist=zCA8P399E-o&amp;loop=1&amp;start=17",
-          "Lmijlbail4w?playlist=Lmijlbail4w&amp;loop=1&amp;start=51"
-        ];
-        const randomIndex = Math.floor(Math.random() * videos.length);
-        const videoId = videos[randomIndex];
-        document.getElementById("video").innerHTML =
-          `<iframe style="display: block; margin: 0 auto;" width="280" height="157" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
-      </script>
-  </section>
-  <!-- End Random Jam Section -->
-
-<!-- END PAGE CONTENT -->
-</div>
 </body>
 </html>
