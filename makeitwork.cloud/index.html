@@ -24,6 +24,13 @@
       font-style: normal;
     }
 
+    @font-face {
+      font-family: 'American Typewriter';
+      src: local('American Typewriter Semibold'), local('AmericanTypewriter-Semibold'), local('American Typewriter');
+      font-weight: 600;
+      font-style: normal;
+    }
+
     :root {
       --bg-dark: #0a0a0a;
       --bg-card: #111111;
@@ -76,7 +83,8 @@
     .subheader {
       margin-top: 1.5rem;
       font-size: 0.75rem;
-      font-weight: 400;
+      font-family: 'American Typewriter', 'Courier New', monospace;
+      font-weight: 600;
       color: var(--text-muted);
       letter-spacing: 0.15em;
     }
