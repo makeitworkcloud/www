@@ -123,20 +123,13 @@
       background-repeat: no-repeat;
     }
 
-    .portal-header {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 1.5rem;
-      margin-bottom: 1.5rem;
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid var(--border-dim);
-    }
-
     .contact-icons {
       display: flex;
       gap: 1rem;
       align-items: center;
+      justify-content: center;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
     }
 
     .contact-icon {
@@ -353,15 +346,6 @@
   <!-- Cloud Resources Grid -->
   <main class="portal">
     <div class="portal-border">
-      <div class="portal-header">
-        <nav class="contact-icons">
-          <a class="contact-icon" href="mailto:steven@makeitwork.cloud" title="Email"><i class="fa fa-envelope"></i></a>
-          <a class="contact-icon" href="https://github.com/xnoto" title="GitHub"><i class="fa-brands fa-github"></i></a>
-          <a class="contact-icon" href="https://linkedin.com/in/welch-makeitwork/" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-          <a class="contact-icon" href="https://mega.nz/C!Kws3DD7J" title="MEGA"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm6 18h-3.5v-7.5L12 15l-2.5-4.5V18H6V6h3.5l2.5 4.5L14.5 6H18v12z"/></svg></a>
-        </nav>
-      </div>
-
       <div class="resource-grid">
         <a class="resource" href="https://ansible.makeitwork.cloud/" title="Ansible Automation Platform">
           <i class="fa-brands fa-redhat resource-icon"></i>
@@ -447,6 +431,13 @@
       <div class="warp-note">
         <span>*</span> OpenShift requires WARP tunnel connection
       </div>
+
+      <nav class="contact-icons">
+        <a class="contact-icon" href="mailto:steven@makeitwork.cloud" title="Email"><i class="fa fa-envelope"></i></a>
+        <a class="contact-icon" href="https://github.com/xnoto" title="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a class="contact-icon" href="https://linkedin.com/in/welch-makeitwork/" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        <a class="contact-icon" href="https://mega.nz/C!Kws3DD7J" title="MEGA"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm6 18h-3.5v-7.5L12 15l-2.5-4.5V18H6V6h3.5l2.5 4.5L14.5 6H18v12z"/></svg></a>
+      </nav>
     </div>
   </main>
 
