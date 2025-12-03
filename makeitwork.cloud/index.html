@@ -76,25 +76,37 @@
       letter-spacing: 0.15em;
     }
 
+    @media (max-width: 600px) {
+      .subheader {
+        font-size: 0.7rem;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .subheader {
+        font-size: 0.6rem;
+        letter-spacing: 0.1em;
+      }
+    }
+
     .site-title {
       font-family: 'IBM EGA 8x8', monospace;
       color: var(--gold-dim);
-      font-size: 3rem;
+      font-size: 4.5rem;
       font-weight: normal;
-      text-shadow: 0 0 10px var(--gold-glow);
-      animation: flicker 32s ease-in-out infinite;
+      text-shadow: 2px 2px 0 #333;
       letter-spacing: 0.1em;
     }
 
     @media (max-width: 600px) {
       .site-title {
-        font-size: 2rem;
+        font-size: 2.5rem;
       }
     }
 
     @media (max-width: 400px) {
       .site-title {
-        font-size: 1.5rem;
+        font-size: 1.75rem;
       }
     }
 
