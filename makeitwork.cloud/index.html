@@ -430,6 +430,25 @@
         <div class="resource-grid">
           <a
             class="resource"
+            href="https://openshift-gitops-server-openshift-gitops.apps.makeitwork.cloud/"
+            title="Argo CD GitOps"
+          >
+            <span class="resource-icon"
+              ><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M50 5C28 5 15 22 15 40c0 15 8 25 15 32l-12 18c-2 3 0 5 3 5s6-2 8-5l10-15c3 2 7 3 11 3s8-1 11-3l10 15c2 3 5 5 8 5s5-2 3-5L70 72c7-7 15-17 15-32 0-18-13-35-35-35zm-14 28a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm28 0a8 8 0 1 1 0 16 8 8 0 0 1 0-16zM50 58c-6 0-10-2-10-5s4-5 10-5 10 2 10 5-4 5-10 5z"
+                /></svg
+            ></span>
+            <div class="resource-content">
+              <div class="resource-name">
+                Argo CD<span style="color: var(--gold-dim)">*</span>
+              </div>
+              <div class="resource-cmd">argocd app sync</div>
+            </div>
+          </a>
+
+          <a
+            class="resource"
             href="https://ansible.makeitwork.cloud/"
             title="Ansible Automation Platform"
           >
@@ -565,7 +584,7 @@
         </div>
 
         <div class="warp-note">
-          <span>*</span> OpenShift requires WARP tunnel connection
+          <span>*</span> Argo CD and OpenShift require WARP tunnel connection
         </div>
       </div>
 
