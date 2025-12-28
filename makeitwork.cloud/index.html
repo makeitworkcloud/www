@@ -20,6 +20,14 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#0a0a0a" />
+    <!-- iOS PWA -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="Make IT Work" />
+    <link rel="apple-touch-startup-image" href="/android-chrome-512x512.png" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap"
@@ -415,6 +423,110 @@
       ::-webkit-scrollbar-thumb:hover {
         background: var(--gold-dim);
       }
+
+      /* Install Banner */
+      .install-banner {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--bg-card);
+        border-top: 1px solid var(--border-gold);
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+        z-index: 1000;
+      }
+
+      .install-banner.visible {
+        transform: translateY(0);
+      }
+
+      .install-banner-content {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex: 1;
+        min-width: 0;
+      }
+
+      .install-banner-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        flex-shrink: 0;
+      }
+
+      .install-banner-text {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .install-banner-title {
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: var(--gold);
+      }
+
+      .install-banner-subtitle {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+      }
+
+      .install-banner-actions {
+        display: flex;
+        gap: 0.5rem;
+        flex-shrink: 0;
+      }
+
+      .install-btn {
+        background: var(--gold-dim);
+        color: var(--bg-dark);
+        border: none;
+        padding: 0.5rem 1rem;
+        font-family: inherit;
+        font-size: 0.75rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .install-btn:hover {
+        background: var(--gold);
+      }
+
+      .install-dismiss {
+        background: transparent;
+        color: var(--text-dim);
+        border: 1px solid var(--border-dim);
+        padding: 0.5rem 0.75rem;
+        font-family: inherit;
+        font-size: 0.75rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .install-dismiss:hover {
+        border-color: var(--text-muted);
+        color: var(--text-muted);
+      }
+
+      /* iOS install instructions */
+      .ios-instructions {
+        display: none;
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        text-align: center;
+        padding: 0.5rem;
+      }
+
+      .ios-instructions i {
+        color: var(--gold-dim);
+      }
     </style>
   </head>
   <body>
@@ -647,5 +759,100 @@
         ></a>
       </nav>
     </main>
+
+    <!-- Install Banner -->
+    <div id="installBanner" class="install-banner">
+      <div class="install-banner-content">
+        <img
+          src="/android-chrome-192x192.png"
+          alt="Make IT Work"
+          class="install-banner-icon"
+        />
+        <div class="install-banner-text">
+          <div class="install-banner-title">Install Make IT Work</div>
+          <div class="install-banner-subtitle">
+            Add to your home screen for quick access
+          </div>
+          <div id="iosInstructions" class="ios-instructions">
+            Tap <i class="fa fa-share-from-square"></i> then "Add to Home
+            Screen"
+          </div>
+        </div>
+      </div>
+      <div class="install-banner-actions">
+        <button id="installBtn" class="install-btn">Install</button>
+        <button id="dismissBtn" class="install-dismiss">Not now</button>
+      </div>
+    </div>
+
+    <script>
+      // Service Worker Registration
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js").catch(() => {});
+      }
+
+      // Install Prompt Logic
+      (() => {
+        const banner = document.getElementById("installBanner");
+        const installBtn = document.getElementById("installBtn");
+        const dismissBtn = document.getElementById("dismissBtn");
+        const iosInstructions = document.getElementById("iosInstructions");
+
+        let deferredPrompt = null;
+        const DISMISSED_KEY = "pwa-install-dismissed";
+        const DISMISS_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days
+
+        // Check if already installed or dismissed
+        const isStandalone =
+          window.matchMedia("(display-mode: standalone)").matches ||
+          navigator.standalone === true;
+        const dismissedAt = localStorage.getItem(DISMISSED_KEY);
+        const wasDismissed =
+          dismissedAt &&
+          Date.now() - parseInt(dismissedAt, 10) < DISMISS_DURATION;
+
+        if (isStandalone || wasDismissed) return;
+
+        // Detect iOS
+        const isIOS =
+          /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+        if (isIOS) {
+          // iOS: Show banner with manual instructions
+          iosInstructions.style.display = "block";
+          installBtn.style.display = "none";
+          setTimeout(() => banner.classList.add("visible"), 1000);
+        } else {
+          // Android/Desktop: Use beforeinstallprompt
+          window.addEventListener("beforeinstallprompt", (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            setTimeout(() => banner.classList.add("visible"), 1000);
+          });
+
+          installBtn.addEventListener("click", async () => {
+            if (!deferredPrompt) return;
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === "accepted") {
+              banner.classList.remove("visible");
+            }
+            deferredPrompt = null;
+          });
+        }
+
+        // Dismiss button
+        dismissBtn.addEventListener("click", () => {
+          localStorage.setItem(DISMISSED_KEY, Date.now().toString());
+          banner.classList.remove("visible");
+        });
+
+        // Hide if installed later
+        window.addEventListener("appinstalled", () => {
+          banner.classList.remove("visible");
+          deferredPrompt = null;
+        });
+      })();
+    </script>
   </body>
 </html>
