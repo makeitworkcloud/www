@@ -1,461 +1,609 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
-<head>
-  <title>Make IT Work</title>
-  <meta charset="UTF-8">
-  <meta name="description" content="Make IT Work Cloud - DevOps Portal">
-  <meta name="keywords" content="Make IT Work, AWS, Cloudflare, DevOps, Ansible, Kubernetes, OpenShift, GitOps">
-  <meta name="author" content="steven@makeitwork.cloud">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="onion-location" content="http://zvr4i7wkppsuj3czsxk3dtdkodbrvobre2ao57z4nebqgyijuwp6znad.onion" />
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="manifest" href="/site.webmanifest">
-  <meta name="theme-color" content="#0a0a0a">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-  <style>
-    @font-face {
-      font-family: 'IBM EGA 8x8';
-      src: url('/Web437_IBM_EGA_8x8.woff') format('woff');
-      font-weight: normal;
-      font-style: normal;
-    }
-
-    @font-face {
-      font-family: 'American Typewriter';
-      src: local('American Typewriter Semibold'), local('AmericanTypewriter-Semibold'), local('American Typewriter');
-      font-weight: 600;
-      font-style: normal;
-    }
-
-    :root {
-      --bg-dark: #0a0a0a;
-      --bg-card: #111111;
-      --bg-card-hover: #1a1a1a;
-      --gold-dim: #8b7355;
-      --gold: #c9a227;
-      --gold-bright: #ffd700;
-      --gold-glow: rgba(201, 162, 39, 0.4);
-      --text-dim: #555;
-      --text-muted: #888;
-      --text-light: #ccc;
-      --border-dim: #222;
-      --border-gold: #3d3520;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      font-size: 16px;
-    }
-
-    body {
-      font-family: 'Fira Code', monospace;
-      background-color: var(--bg-dark);
-      color: var(--text-light);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 2rem 1rem;
-      line-height: 1.6;
-    }
-
-    /* ASCII Art Header */
-    .cloud-header {
-      text-align: center;
-      margin-bottom: 2.5rem;
-      opacity: 0;
-      animation: fadeIn 1s ease-out forwards;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-    }
-
-    .subheader {
-      margin-top: 1.5rem;
-      font-size: 0.75rem;
-      font-family: 'Fira Code', monospace;
-      font-weight: 400;
-      color: var(--text-muted);
-      letter-spacing: 0.15em;
-    }
-
-    @media (max-width: 600px) {
-      .subheader {
-        font-size: 0.65rem;
+  <head>
+    <title>Make IT Work</title>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Make IT Work Cloud - DevOps Portal" />
+    <meta
+      name="keywords"
+      content="Make IT Work, AWS, Cloudflare, DevOps, Ansible, Kubernetes, OpenShift, GitOps"
+    />
+    <meta name="author" content="steven@makeitwork.cloud" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="onion-location"
+      content="http://zvr4i7wkppsuj3czsxk3dtdkodbrvobre2ao57z4nebqgyijuwp6znad.onion"
+    />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <style>
+      @font-face {
+        font-family: "IBM EGA 8x8";
+        src: url("/Web437_IBM_EGA_8x8.woff") format("woff");
+        font-weight: normal;
+        font-style: normal;
       }
-    }
 
-    @media (max-width: 400px) {
+      @font-face {
+        font-family: "American Typewriter";
+        src: local("American Typewriter Semibold"),
+          local("AmericanTypewriter-Semibold"), local("American Typewriter");
+        font-weight: 600;
+        font-style: normal;
+      }
+
+      :root {
+        --bg-dark: #0a0a0a;
+        --bg-card: #111111;
+        --bg-card-hover: #1a1a1a;
+        --gold-dim: #8b7355;
+        --gold: #c9a227;
+        --gold-bright: #ffd700;
+        --gold-glow: rgba(201, 162, 39, 0.4);
+        --text-dim: #555;
+        --text-muted: #888;
+        --text-light: #ccc;
+        --border-dim: #222;
+        --border-gold: #3d3520;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        font-size: 16px;
+      }
+
+      body {
+        font-family: "Fira Code", monospace;
+        background-color: var(--bg-dark);
+        color: var(--text-light);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 1rem;
+        line-height: 1.6;
+      }
+
+      /* ASCII Art Header */
+      .cloud-header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+        opacity: 0;
+        animation: fadeIn 1s ease-out forwards;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+
       .subheader {
-        font-size: 0.55rem;
+        margin-top: 1.5rem;
+        font-size: 0.75rem;
+        font-family: "Fira Code", monospace;
+        font-weight: 400;
+        color: var(--text-muted);
+        letter-spacing: 0.15em;
+      }
+
+      @media (max-width: 600px) {
+        .subheader {
+          font-size: 0.65rem;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .subheader {
+          font-size: 0.55rem;
+          letter-spacing: 0.1em;
+        }
+      }
+
+      .site-title {
+        font-family: "IBM EGA 8x8", monospace;
+        color: var(--gold-dim);
+        font-size: 4rem;
+        font-weight: normal;
+        text-shadow: 3px 3px 0 #333;
         letter-spacing: 0.1em;
+        animation: flicker 32s ease-in-out infinite;
       }
-    }
 
-    .site-title {
-      font-family: 'IBM EGA 8x8', monospace;
-      color: var(--gold-dim);
-      font-size: 4rem;
-      font-weight: normal;
-      text-shadow: 3px 3px 0 #333;
-      letter-spacing: 0.1em;
-      animation: flicker 32s ease-in-out infinite;
-    }
-
-    @media (max-width: 600px) {
-      .site-title {
-        font-size: 2.5rem;
+      @media (max-width: 600px) {
+        .site-title {
+          font-size: 2.5rem;
+        }
       }
-    }
 
-    @media (max-width: 400px) {
-      .site-title {
-        font-size: 1.75rem;
+      @media (max-width: 400px) {
+        .site-title {
+          font-size: 1.75rem;
+        }
       }
-    }
 
-    /* Cloud Resources Grid */
-    .portal {
-      width: 100%;
-      max-width: 900px;
-      opacity: 0;
-      animation: fadeIn 1s ease-out 0.3s forwards;
-    }
-
-    .portal-border {
-      border: 1px solid var(--border-gold);
-      padding: 1.5rem;
-      background: 
-        linear-gradient(135deg, var(--border-gold) 0%, transparent 50%),
-        linear-gradient(-135deg, var(--border-gold) 0%, transparent 50%),
-        var(--bg-dark);
-      background-size: 20px 20px, 20px 20px, 100% 100%;
-      background-position: top left, top right, center;
-      background-repeat: no-repeat;
-    }
-
-    .contact-icons {
-      display: flex;
-      gap: 1rem;
-      align-items: center;
-      justify-content: center;
-      margin-top: 1.5rem;
-      padding-top: 1rem;
-    }
-
-    .contact-icon {
-      color: var(--text-dim);
-      font-size: 1.1rem;
-      transition: all 0.3s ease;
-      padding: 0.4rem;
-    }
-
-    .contact-icon:hover {
-      color: var(--gold);
-      text-shadow: 0 0 12px var(--gold-glow);
-      transform: translateY(-2px);
-    }
-
-    .contact-icon svg {
-      width: 1.1rem;
-      height: 1.1rem;
-      fill: currentColor;
-      vertical-align: middle;
-    }
-
-    .resource-icon svg {
-      width: 1.25rem;
-      height: 1.25rem;
-      fill: currentColor;
-      vertical-align: middle;
-    }
-
-    /* Resource Grid */
-    .resource-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.75rem;
-    }
-
-    @media (min-width: 480px) {
-      .resource-grid {
-        grid-template-columns: repeat(2, 1fr);
+      /* Cloud Resources Grid */
+      .portal {
+        width: 100%;
+        max-width: 900px;
+        opacity: 0;
+        animation: fadeIn 1s ease-out 0.3s forwards;
       }
-    }
 
-    @media (min-width: 768px) {
-      .resource-grid {
-        grid-template-columns: repeat(3, 1fr);
+      .portal-border {
+        border: 1px solid var(--border-gold);
+        padding: 1.5rem;
+        background: linear-gradient(
+            135deg,
+            var(--border-gold) 0%,
+            transparent 50%
+          ),
+          linear-gradient(-135deg, var(--border-gold) 0%, transparent 50%),
+          var(--bg-dark);
+        background-size:
+          20px 20px,
+          20px 20px,
+          100% 100%;
+        background-position:
+          top left,
+          top right,
+          center;
+        background-repeat: no-repeat;
+      }
+
+      .contact-icons {
+        display: flex;
         gap: 1rem;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1.5rem;
+        padding-top: 1rem;
       }
-    }
 
-    /* Individual Resource Card */
-    .resource {
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 1rem;
-      background: var(--bg-card);
-      border: 1px solid var(--border-dim);
-      text-decoration: none;
-      color: var(--text-light);
-      transition: all 0.3s ease;
-      overflow: hidden;
-    }
+      .contact-icon {
+        color: var(--text-dim);
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        padding: 0.4rem;
+      }
 
-    .resource::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 3px;
-      height: 100%;
-      background: var(--gold-dim);
-      transform: scaleY(0);
-      transition: transform 0.3s ease;
-    }
+      .contact-icon:hover {
+        color: var(--gold);
+        text-shadow: 0 0 12px var(--gold-glow);
+        transform: translateY(-2px);
+      }
 
-    .resource:hover {
-      background: var(--bg-card-hover);
-      border-color: var(--border-gold);
-      box-shadow: 
-        0 0 20px rgba(201, 162, 39, 0.1),
-        inset 0 0 30px rgba(201, 162, 39, 0.03);
-      transform: translateY(-2px);
-    }
+      .contact-icon svg {
+        width: 1.1rem;
+        height: 1.1rem;
+        fill: currentColor;
+        vertical-align: middle;
+      }
 
-    .resource:hover::before {
-      transform: scaleY(1);
-      background: var(--gold);
-      box-shadow: 0 0 10px var(--gold-glow);
-    }
+      .resource-icon svg {
+        width: 1.25rem;
+        height: 1.25rem;
+        fill: currentColor;
+        vertical-align: middle;
+      }
 
-    .resource-icon {
-      font-size: 1.25rem;
-      color: var(--gold-dim);
-      width: 1.5rem;
-      text-align: center;
-      transition: all 0.3s ease;
-    }
+      /* Resource Grid */
+      .resource-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+      }
 
-    .resource:hover .resource-icon {
-      color: var(--gold-bright);
-      text-shadow: 0 0 15px var(--gold-glow);
-    }
+      @media (min-width: 480px) {
+        .resource-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
 
-    .resource-content {
-      flex: 1;
-      min-width: 0;
-    }
+      @media (min-width: 768px) {
+        .resource-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1rem;
+        }
+      }
 
-    .resource-name {
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--text-light);
-      margin-bottom: 0.15rem;
-      transition: color 0.3s ease;
-    }
+      /* Individual Resource Card */
+      .resource {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1rem;
+        background: var(--bg-card);
+        border: 1px solid var(--border-dim);
+        text-decoration: none;
+        color: var(--text-light);
+        transition: all 0.3s ease;
+        overflow: hidden;
+      }
 
-    .resource:hover .resource-name {
-      color: var(--gold);
-    }
+      .resource::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 100%;
+        background: var(--gold-dim);
+        transform: scaleY(0);
+        transition: transform 0.3s ease;
+      }
 
-    .resource-cmd {
-      font-size: 0.65rem;
-      color: var(--text-dim);
-      font-weight: 600;
-    }
+      .resource:hover {
+        background: var(--bg-card-hover);
+        border-color: var(--border-gold);
+        box-shadow:
+          0 0 20px rgba(201, 162, 39, 0.1),
+          inset 0 0 30px rgba(201, 162, 39, 0.03);
+        transform: translateY(-2px);
+      }
 
-    .resource-cmd::before {
-      content: '$ ';
-      color: var(--gold-dim);
-      font-weight: 600;
-    }
+      .resource:hover::before {
+        transform: scaleY(1);
+        background: var(--gold);
+        box-shadow: 0 0 10px var(--gold-glow);
+      }
 
-    /* WARP Note */
-    .warp-note {
-      font-size: 0.7rem;
-      color: var(--text-dim);
-      padding-top: 1rem;
-      margin-top: 1rem;
-      text-align: center;
-      font-weight: 600;
-    }
+      .resource-icon {
+        font-size: 1.25rem;
+        color: var(--gold-dim);
+        width: 1.5rem;
+        text-align: center;
+        transition: all 0.3s ease;
+      }
 
-    .warp-note span {
-      color: var(--gold-dim);
-    }
+      .resource:hover .resource-icon {
+        color: var(--gold-bright);
+        text-shadow: 0 0 15px var(--gold-glow);
+      }
 
+      .resource-content {
+        flex: 1;
+        min-width: 0;
+      }
 
+      .resource-name {
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: var(--text-light);
+        margin-bottom: 0.15rem;
+        transition: color 0.3s ease;
+      }
 
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+      .resource:hover .resource-name {
+        color: var(--gold);
+      }
 
-    @keyframes flicker {
-      0% { opacity: 0.75; }
-      5% { opacity: 0.85; }
-      10% { opacity: 0.7; }
-      15% { opacity: 0.95; }
-      20% { opacity: 0.8; }
-      25% { opacity: 0.88; }
-      30% { opacity: 0.72; }
-      35% { opacity: 1; }
-      40% { opacity: 0.78; }
-      45% { opacity: 0.68; }
-      50% { opacity: 0.9; }
-      55% { opacity: 0.76; }
-      60% { opacity: 1; }
-      65% { opacity: 0.82; }
-      70% { opacity: 0.7; }
-      75% { opacity: 0.92; }
-      80% { opacity: 0.74; }
-      85% { opacity: 0.86; }
-      90% { opacity: 0.71; }
-      95% { opacity: 0.96; }
-      100% { opacity: 0.75; }
-    }
+      .resource-cmd {
+        font-size: 0.65rem;
+        color: var(--text-dim);
+        font-weight: 600;
+      }
 
-    /* Scrollbar */
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
+      .resource-cmd::before {
+        content: "$ ";
+        color: var(--gold-dim);
+        font-weight: 600;
+      }
 
-    ::-webkit-scrollbar-track {
-      background: var(--bg-dark);
-    }
+      /* WARP Note */
+      .warp-note {
+        font-size: 0.7rem;
+        color: var(--text-dim);
+        padding-top: 1rem;
+        margin-top: 1rem;
+        text-align: center;
+        font-weight: 600;
+      }
 
-    ::-webkit-scrollbar-thumb {
-      background: var(--border-gold);
-      border-radius: 3px;
-    }
+      .warp-note span {
+        color: var(--gold-dim);
+      }
 
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--gold-dim);
-    }
-  </style>
-</head>
-<body>
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
 
-  <!-- Header -->
-  <header class="cloud-header">
-    <h1 class="site-title">MAKE IT WORK</h1>
-    <p class="subheader">Upon hearing this, the employee was enlightened.</p>
-  </header>
+      @keyframes flicker {
+        0% {
+          opacity: 0.75;
+        }
+        5% {
+          opacity: 0.85;
+        }
+        10% {
+          opacity: 0.7;
+        }
+        15% {
+          opacity: 0.95;
+        }
+        20% {
+          opacity: 0.8;
+        }
+        25% {
+          opacity: 0.88;
+        }
+        30% {
+          opacity: 0.72;
+        }
+        35% {
+          opacity: 1;
+        }
+        40% {
+          opacity: 0.78;
+        }
+        45% {
+          opacity: 0.68;
+        }
+        50% {
+          opacity: 0.9;
+        }
+        55% {
+          opacity: 0.76;
+        }
+        60% {
+          opacity: 1;
+        }
+        65% {
+          opacity: 0.82;
+        }
+        70% {
+          opacity: 0.7;
+        }
+        75% {
+          opacity: 0.92;
+        }
+        80% {
+          opacity: 0.74;
+        }
+        85% {
+          opacity: 0.86;
+        }
+        90% {
+          opacity: 0.71;
+        }
+        95% {
+          opacity: 0.96;
+        }
+        100% {
+          opacity: 0.75;
+        }
+      }
 
-  <!-- Cloud Resources Grid -->
-  <main class="portal">
-    <div class="portal-border">
-      <div class="resource-grid">
-        <a class="resource" href="https://ansible.makeitwork.cloud/" title="Ansible Automation Platform">
-          <i class="fa-brands fa-redhat resource-icon"></i>
-          <div class="resource-content">
-            <div class="resource-name">Ansible</div>
-            <div class="resource-cmd">ansible-playbook</div>
-          </div>
-        </a>
+      /* Scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
 
-        <a class="resource" href="https://makeitwork.cloud/github" title="GitHub Organization">
-          <i class="fa-brands fa-github resource-icon"></i>
-          <div class="resource-content">
-            <div class="resource-name">GitHub</div>
-            <div class="resource-cmd">git pull</div>
-          </div>
-        </a>
+      ::-webkit-scrollbar-track {
+        background: var(--bg-dark);
+      }
 
-        <a class="resource" href="https://grafana.makeitwork.cloud/" title="Grafana Observability">
-          <span class="resource-icon"><svg viewBox="0 0 351 365" xmlns="http://www.w3.org/2000/svg"><path d="M342 161.2a127.9 127.9 0 0 0-13-45.9 139 139 0 0 0-27-37 53 53 0 0 0-6.2-37.9 56 56 0 0 0-36.5 9.4l-2.3-1a138 138 0 0 0-32.3-8.9l-2-.3A68 68 0 0 0 189.8 1c-27.3 17.3-32.4 41.5-32.4 41.5l-.3 1.4-4.5 1.3-6.2 2.2a161 161 0 0 0-18.4 8.5q-5.8 3.3-11.4 7.1l-1-.4c-37.8-14.4-71.3 2.9-71.3 2.9A103 103 0 0 0 63 135.6l-2.5 7.5a173 173 0 0 0-6.7 32.3C18.8 192.7 8.5 228 8.5 228c29.1 33.5 63.1 35.6 63.1 35.6l.1-.1A154 154 0 0 0 94 293.7c-10.6 30.4 1.5 55.6 1.5 55.6a91 91 0 0 0 58.2-17.7q4.8 1.7 9.8 2.9a143 143 0 0 0 38 4.6h3.6l1.6-.1v.1c15.3 21.8 42.1 24.9 42.1 24.9a67 67 0 0 0 20.2-44.4v-1.8q6-4.2 11.4-9.1 11.5-10.4 19.9-23.3l1.5-2.4c21.6 1.2 36.9-13.4 36.9-13.4a56 56 0 0 0-19.1-35.6l-.3-.2-.2-.2-.5-.3.3-4.1q.3-3.7.2-7.3v-3.8l-.1-1.5-.1-2-.2-1.9-.2-1.9-.2-1.9-.3-1.9a96 96 0 0 0-12.4-34.6 92 92 0 0 0-41.4-36.7 91 91 0 0 0-38.4-7.9h-3.2l-1.6.1-1.7.1q-3.3.3-6.5.9a71 71 0 0 0-58.3 65.2l-.1 5.2v1.3l.1 1.4.2 2.5a55 55 0 0 0 23.4 39.9 54 54 0 0 0 29.5 9.1h2.6l.9-.1 1.5-.1.4-.1.5-.1.9-.1 1.7-.3 1.6-.4q1.6-.4 3.1-.9 3-1 5.7-2.4t5-3l1.3-1a4 4 0 0 0 .6-5.3 4 4 0 0 0-4.7-.9l-1.2.6a33 33 0 0 1-9 3l-2.5.3-1.3.1h-2.4l-1.5-.1h-.6l-.7-.1-1.4-.2a39 39 0 0 1-21-9.8 38 38 0 0 1-12.6-29l.1-1.8v-.8l.1-.9.5-3.6a48 48 0 0 1 34.1-37.6q3.8-1 7.8-1.4l4-.2h3.1l1.1.1q4.3.3 8.5 1.3a60 60 0 0 1 40.4 31.2q4.1 8 5.5 16.9l.5 4.5.1 1.1.1 1.1v4.3l-.1 2.6a81 81 0 0 1-5.4 23.7q-3.6 9-9.4 17.1a77 77 0 0 1-49 30.4q-4.8.9-9.8 1h-5l-5.3-.3a105 105 0 0 1-40.1-11.5 103 103 0 0 1-54-83.1l-.1-1.3v-8.9a120 120 0 0 1 5-30.7q2.9-10.1 7.1-19.3a109 109 0 0 1 28.9-38 102 102 0 0 1 19.5-12l2.1-.9 2.1-.9q4.2-1.8 8.7-3.1l2.2-.7 2.2-.6 4.5-1.1 2.3-.5 2.3-.5 2.3-.4 1.1-.2 1.2-.2 2.3-.3 2.6-.3 2.6-.3 1.6-.2 1.1-.1.5-.1h.6l2.6-.2 1.3-.1h1l2.2-.1a129 129 0 0 1 25.8 1.9 120 120 0 0 1 56.3 26.8l1.4 1.2 1.3 1.2 2.6 2.4 2.5 2.4 2.4 2.5a131 131 0 0 1 21.3 29.9l.6 1.2.6 1.2 1.1 2.4 1.1 2.3 1 2.3q1.9 4.5 3.3 8.6 2.2 6.6 3.5 11.7a3 3 0 0 0 3 2.1 3 3 0 0 0 2.6-2.8q.2-5.4-.5-12.8"/></svg></span>
-          <div class="resource-content">
-            <div class="resource-name">Grafana</div>
-            <div class="resource-cmd">grafanactl resources push</div>
-          </div>
-        </a>
+      ::-webkit-scrollbar-thumb {
+        background: var(--border-gold);
+        border-radius: 3px;
+      }
 
-        <a class="resource" href="https://onion.makeitwork.cloud" title="Onion Services Directory">
-          <span class="resource-icon"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50 5c-2 0-4 2-5 5-1 2-2 5-2 8 0 2 0 4 1 6-8 2-15 6-20 12-6 6-9 14-9 23 0 10 4 19 11 26s17 11 27 11 19-4 26-11 11-16 11-26c0-9-3-17-9-23-5-6-12-10-20-12 1-2 1-4 1-6 0-3-1-6-2-8-1-3-3-5-5-5zm2 25c7 0 13 3 18 8s7 11 7 18-2 14-7 19-11 8-18 8-14-3-19-8-7-12-7-19 2-13 7-18 12-8 19-8m0 8c-5 0-10 2-13 6-4 4-6 9-6 14s2 10 6 14c3 4 8 6 13 6s10-2 14-6 5-9 5-14a18.7 18.7 0 0 0-19-20m0 8c3 0 6 1 8 4 2 2 3 5 3 8q0 4.5-3 9c-2 2-5 3-8 3s-6-1-8-3c-2-3-4-6-4-9s2-6 4-8c2-3 5-4 8-4m0 7c-1 0-3 1-4 2s-1 3-1 4c0 2 0 3 1 4s3 2 4 2c2 0 3-1 4-2s2-2 2-4c0-1-1-3-2-4s-2-2-4-2"/></svg></span>
-          <div class="resource-content">
-            <div class="resource-name">Onions</div>
-            <div class="resource-cmd">tor --hash-password</div>
-          </div>
-        </a>
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--gold-dim);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="cloud-header">
+      <h1 class="site-title">MAKE IT WORK</h1>
+      <p class="subheader">Upon hearing this, the employee was enlightened.</p>
+    </header>
 
-        <a class="resource" href="https://keys.openpgp.org/search?q=steven%40makeitwork.cloud" title="OpenPGP Keys">
-          <i class="fa fa-key resource-icon"></i>
-          <div class="resource-content">
-            <div class="resource-name">OpenPGP</div>
-            <div class="resource-cmd">gpg --verify</div>
-          </div>
-        </a>
+    <!-- Cloud Resources Grid -->
+    <main class="portal">
+      <div class="portal-border">
+        <div class="resource-grid">
+          <a
+            class="resource"
+            href="https://ansible.makeitwork.cloud/"
+            title="Ansible Automation Platform"
+          >
+            <i class="fa-brands fa-redhat resource-icon"></i>
+            <div class="resource-content">
+              <div class="resource-name">Ansible</div>
+              <div class="resource-cmd">ansible-playbook</div>
+            </div>
+          </a>
 
-        <a class="resource" href="https://console-openshift-console.apps.makeitwork.cloud/" title="OpenShift Console">
-          <i class="fa-brands fa-redhat resource-icon"></i>
-          <div class="resource-content">
-            <div class="resource-name">OpenShift<span style="color: var(--gold-dim);">*</span></div>
-            <div class="resource-cmd">oc login</div>
-          </div>
-        </a>
+          <a
+            class="resource"
+            href="https://makeitwork.cloud/github"
+            title="GitHub Organization"
+          >
+            <i class="fa-brands fa-github resource-icon"></i>
+            <div class="resource-content">
+              <div class="resource-name">GitHub</div>
+              <div class="resource-cmd">git pull</div>
+            </div>
+          </a>
 
-        <a class="resource" href="https://plex.makeitwork.cloud" title="Plex Media Server">
-          <span class="resource-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.6 0H4.7l7.7 12-7.7 12h7l7.6-12z"/></svg></span>
-          <div class="resource-content">
-            <div class="resource-name">Plex</div>
-            <div class="resource-cmd">yt-dlp --all-subs</div>
-          </div>
-        </a>
+          <a
+            class="resource"
+            href="https://grafana.makeitwork.cloud/"
+            title="Grafana Observability"
+          >
+            <span class="resource-icon"
+              ><svg viewBox="0 0 351 365" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M342 161.2a127.9 127.9 0 0 0-13-45.9 139 139 0 0 0-27-37 53 53 0 0 0-6.2-37.9 56 56 0 0 0-36.5 9.4l-2.3-1a138 138 0 0 0-32.3-8.9l-2-.3A68 68 0 0 0 189.8 1c-27.3 17.3-32.4 41.5-32.4 41.5l-.3 1.4-4.5 1.3-6.2 2.2a161 161 0 0 0-18.4 8.5q-5.8 3.3-11.4 7.1l-1-.4c-37.8-14.4-71.3 2.9-71.3 2.9A103 103 0 0 0 63 135.6l-2.5 7.5a173 173 0 0 0-6.7 32.3C18.8 192.7 8.5 228 8.5 228c29.1 33.5 63.1 35.6 63.1 35.6l.1-.1A154 154 0 0 0 94 293.7c-10.6 30.4 1.5 55.6 1.5 55.6a91 91 0 0 0 58.2-17.7q4.8 1.7 9.8 2.9a143 143 0 0 0 38 4.6h3.6l1.6-.1v.1c15.3 21.8 42.1 24.9 42.1 24.9a67 67 0 0 0 20.2-44.4v-1.8q6-4.2 11.4-9.1 11.5-10.4 19.9-23.3l1.5-2.4c21.6 1.2 36.9-13.4 36.9-13.4a56 56 0 0 0-19.1-35.6l-.3-.2-.2-.2-.5-.3.3-4.1q.3-3.7.2-7.3v-3.8l-.1-1.5-.1-2-.2-1.9-.2-1.9-.2-1.9-.3-1.9a96 96 0 0 0-12.4-34.6 92 92 0 0 0-41.4-36.7 91 91 0 0 0-38.4-7.9h-3.2l-1.6.1-1.7.1q-3.3.3-6.5.9a71 71 0 0 0-58.3 65.2l-.1 5.2v1.3l.1 1.4.2 2.5a55 55 0 0 0 23.4 39.9 54 54 0 0 0 29.5 9.1h2.6l.9-.1 1.5-.1.4-.1.5-.1.9-.1 1.7-.3 1.6-.4q1.6-.4 3.1-.9 3-1 5.7-2.4t5-3l1.3-1a4 4 0 0 0 .6-5.3 4 4 0 0 0-4.7-.9l-1.2.6a33 33 0 0 1-9 3l-2.5.3-1.3.1h-2.4l-1.5-.1h-.6l-.7-.1-1.4-.2a39 39 0 0 1-21-9.8 38 38 0 0 1-12.6-29l.1-1.8v-.8l.1-.9.5-3.6a48 48 0 0 1 34.1-37.6q3.8-1 7.8-1.4l4-.2h3.1l1.1.1q4.3.3 8.5 1.3a60 60 0 0 1 40.4 31.2q4.1 8 5.5 16.9l.5 4.5.1 1.1.1 1.1v4.3l-.1 2.6a81 81 0 0 1-5.4 23.7q-3.6 9-9.4 17.1a77 77 0 0 1-49 30.4q-4.8.9-9.8 1h-5l-5.3-.3a105 105 0 0 1-40.1-11.5 103 103 0 0 1-54-83.1l-.1-1.3v-8.9a120 120 0 0 1 5-30.7q2.9-10.1 7.1-19.3a109 109 0 0 1 28.9-38 102 102 0 0 1 19.5-12l2.1-.9 2.1-.9q4.2-1.8 8.7-3.1l2.2-.7 2.2-.6 4.5-1.1 2.3-.5 2.3-.5 2.3-.4 1.1-.2 1.2-.2 2.3-.3 2.6-.3 2.6-.3 1.6-.2 1.1-.1.5-.1h.6l2.6-.2 1.3-.1h1l2.2-.1a129 129 0 0 1 25.8 1.9 120 120 0 0 1 56.3 26.8l1.4 1.2 1.3 1.2 2.6 2.4 2.5 2.4 2.4 2.5a131 131 0 0 1 21.3 29.9l.6 1.2.6 1.2 1.1 2.4 1.1 2.3 1 2.3q1.9 4.5 3.3 8.6 2.2 6.6 3.5 11.7a3 3 0 0 0 3 2.1 3 3 0 0 0 2.6-2.8q.2-5.4-.5-12.8"
+                /></svg
+            ></span>
+            <div class="resource-content">
+              <div class="resource-name">Grafana</div>
+              <div class="resource-cmd">grafanactl resources push</div>
+            </div>
+          </a>
 
-        <a class="resource" href="https://makeitwork.cloud/public" title="Public Files">
-          <i class="fa fa-cloud-download resource-icon"></i>
-          <div class="resource-content">
-            <div class="resource-name">Public</div>
-            <div class="resource-cmd">mega-cmd</div>
-          </div>
-        </a>
+          <a
+            class="resource"
+            href="https://onion.makeitwork.cloud"
+            title="Onion Services Directory"
+          >
+            <span class="resource-icon"
+              ><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M50 5c-2 0-4 2-5 5-1 2-2 5-2 8 0 2 0 4 1 6-8 2-15 6-20 12-6 6-9 14-9 23 0 10 4 19 11 26s17 11 27 11 19-4 26-11 11-16 11-26c0-9-3-17-9-23-5-6-12-10-20-12 1-2 1-4 1-6 0-3-1-6-2-8-1-3-3-5-5-5zm2 25c7 0 13 3 18 8s7 11 7 18-2 14-7 19-11 8-18 8-14-3-19-8-7-12-7-19 2-13 7-18 12-8 19-8m0 8c-5 0-10 2-13 6-4 4-6 9-6 14s2 10 6 14c3 4 8 6 13 6s10-2 14-6 5-9 5-14a18.7 18.7 0 0 0-19-20m0 8c3 0 6 1 8 4 2 2 3 5 3 8q0 4.5-3 9c-2 2-5 3-8 3s-6-1-8-3c-2-3-4-6-4-9s2-6 4-8c2-3 5-4 8-4m0 7c-1 0-3 1-4 2s-1 3-1 4c0 2 0 3 1 4s3 2 4 2c2 0 3-1 4-2s2-2 2-4c0-1-1-3-2-4s-2-2-4-2"
+                /></svg
+            ></span>
+            <div class="resource-content">
+              <div class="resource-name">Onions</div>
+              <div class="resource-cmd">tor --hash-password</div>
+            </div>
+          </a>
 
-        <a class="resource" href="https://status.makeitwork.cloud/status/default" title="Status Dashboard">
-          <i class="fa-solid fa-chart-simple resource-icon"></i>
-          <div class="resource-content">
-            <div class="resource-name">Status</div>
-            <div class="resource-cmd">uptime</div>
-          </div>
-        </a>
+          <a
+            class="resource"
+            href="https://keys.openpgp.org/search?q=steven%40makeitwork.cloud"
+            title="OpenPGP Keys"
+          >
+            <i class="fa fa-key resource-icon"></i>
+            <div class="resource-content">
+              <div class="resource-name">OpenPGP</div>
+              <div class="resource-cmd">gpg --verify</div>
+            </div>
+          </a>
 
-        <a class="resource" href="https://makeitworkcloud.cloudflareaccess.com/warp" title="Cloudflare WARP">
-          <i class="fa-brands fa-cloudflare resource-icon"></i>
-          <div class="resource-content">
-            <div class="resource-name">WARP</div>
-            <div class="resource-cmd">warp-cli connect</div>
-          </div>
-        </a>
+          <a
+            class="resource"
+            href="https://console-openshift-console.apps.makeitwork.cloud/"
+            title="OpenShift Console"
+          >
+            <i class="fa-brands fa-redhat resource-icon"></i>
+            <div class="resource-content">
+              <div class="resource-name">
+                OpenShift<span style="color: var(--gold-dim)">*</span>
+              </div>
+              <div class="resource-cmd">oc login</div>
+            </div>
+          </a>
+
+          <a
+            class="resource"
+            href="https://plex.makeitwork.cloud"
+            title="Plex Media Server"
+          >
+            <span class="resource-icon"
+              ><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.6 0H4.7l7.7 12-7.7 12h7l7.6-12z" /></svg
+            ></span>
+            <div class="resource-content">
+              <div class="resource-name">Plex</div>
+              <div class="resource-cmd">yt-dlp --all-subs</div>
+            </div>
+          </a>
+
+          <a
+            class="resource"
+            href="https://makeitwork.cloud/public"
+            title="Public Files"
+          >
+            <i class="fa fa-cloud-download resource-icon"></i>
+            <div class="resource-content">
+              <div class="resource-name">Public</div>
+              <div class="resource-cmd">mega-cmd</div>
+            </div>
+          </a>
+
+          <a
+            class="resource"
+            href="https://status.makeitwork.cloud/status/default"
+            title="Status Dashboard"
+          >
+            <i class="fa-solid fa-chart-simple resource-icon"></i>
+            <div class="resource-content">
+              <div class="resource-name">Status</div>
+              <div class="resource-cmd">uptime</div>
+            </div>
+          </a>
+
+          <a
+            class="resource"
+            href="https://makeitworkcloud.cloudflareaccess.com/warp"
+            title="Cloudflare WARP"
+          >
+            <i class="fa-brands fa-cloudflare resource-icon"></i>
+            <div class="resource-content">
+              <div class="resource-name">WARP</div>
+              <div class="resource-cmd">warp-cli connect</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="warp-note">
+          <span>*</span> OpenShift requires WARP tunnel connection
+        </div>
       </div>
 
-      <div class="warp-note">
-        <span>*</span> OpenShift requires WARP tunnel connection
-      </div>
-    </div>
-
-    <nav class="contact-icons">
-      <a class="contact-icon" href="https://discord.com/users/xnotocode_41639" title="Discord"><i class="fa-brands fa-discord"></i></a>
-      <a class="contact-icon" href="mailto:steven@makeitwork.cloud" title="Email"><i class="fa fa-envelope"></i></a>
-      <a class="contact-icon" href="https://github.com/xnoto" title="GitHub"><i class="fa-brands fa-github"></i></a>
-      <a class="contact-icon" href="https://linkedin.com/in/welch-makeitwork/" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-      <a class="contact-icon" href="https://mega.nz/C!Kws3DD7J" title="MEGA"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm6 18h-3.5v-7.5L12 15l-2.5-4.5V18H6V6h3.5l2.5 4.5L14.5 6H18v12z"/></svg></a>
-      <a class="contact-icon" href="https://steamcommunity.com/profiles/76561198378593108" title="Steam"><i class="fa-brands fa-steam"></i></a>
-    </nav>
-  </main>
-
-</body>
+      <nav class="contact-icons">
+        <a
+          class="contact-icon"
+          href="https://discord.com/users/xnotocode_41639"
+          title="Discord"
+          ><i class="fa-brands fa-discord"></i
+        ></a>
+        <a
+          class="contact-icon"
+          href="mailto:steven@makeitwork.cloud"
+          title="Email"
+          ><i class="fa fa-envelope"></i
+        ></a>
+        <a class="contact-icon" href="https://github.com/xnoto" title="GitHub"
+          ><i class="fa-brands fa-github"></i
+        ></a>
+        <a
+          class="contact-icon"
+          href="https://linkedin.com/in/welch-makeitwork/"
+          title="LinkedIn"
+          ><i class="fa-brands fa-linkedin"></i
+        ></a>
+        <a class="contact-icon" href="https://mega.nz/C!Kws3DD7J" title="MEGA"
+          ><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm6 18h-3.5v-7.5L12 15l-2.5-4.5V18H6V6h3.5l2.5 4.5L14.5 6H18v12z"
+            /></svg
+        ></a>
+        <a
+          class="contact-icon"
+          href="https://steamcommunity.com/profiles/76561198378593108"
+          title="Steam"
+          ><i class="fa-brands fa-steam"></i
+        ></a>
+      </nav>
+    </main>
+  </body>
 </html>
