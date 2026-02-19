@@ -295,6 +295,9 @@
         color: var(--text-light);
         margin-bottom: 0.15rem;
         transition: color 0.3s ease;
+        -webkit-font-smoothing: none;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: geometricPrecision;
       }
 
       .resource:hover .resource-name {
@@ -305,6 +308,9 @@
         font-size: 0.75rem;
         color: var(--text-dim);
         font-weight: 600;
+        -webkit-font-smoothing: none;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: geometricPrecision;
       }
 
       .resource-cmd::before {
