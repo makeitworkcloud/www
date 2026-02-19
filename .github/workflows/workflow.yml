@@ -42,10 +42,3 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.ONION_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.ONION_AWS_REGION }}
           SOURCE_DIR: 'onion.makeitwork.cloud/'
-
-      - name: Purge Cloudflare Cache
-        run: |
-          curl -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/purge_cache" \
-            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
-            -H "Content-Type: application/json" \
-            --data '{"purge_everything":true}'
