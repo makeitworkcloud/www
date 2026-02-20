@@ -80,7 +80,7 @@
       }
 
       body {
-        font-family: "IBM VGA 9x16", "IBM VGA 8x16", monospace;
+        font-family: "IBM VGA 9x16", monospace;
         background-color: var(--bg-dark);
         color: var(--text-light);
         min-height: 100vh;
@@ -110,8 +110,8 @@
 
       .subheader {
         margin-top: 1.5rem;
-        font-size: 1rem;
-        font-family: "IBM VGA 9x16", "IBM VGA 8x16", monospace;
+        font-size: 16px;
+        font-family: "IBM VGA 9x16", monospace;
         font-weight: 400;
         color: var(--text-muted);
         letter-spacing: 0.05em;
@@ -295,7 +295,7 @@
       }
 
       .resource-name {
-        font-size: 0.95rem;
+        font-size: 16px;
         font-weight: 500;
         color: var(--text-light);
         margin-bottom: 0.15rem;
@@ -307,15 +307,14 @@
       }
 
       .resource-cmd {
-        font-size: 0.8rem;
+        font-family: "IBM VGA 8x16", monospace;
+        font-size: 16px;
         color: var(--text-dim);
-        font-weight: 600;
       }
 
       .resource-cmd::before {
         content: "$ ";
         color: var(--gold-dim);
-        font-weight: 600;
       }
 
       /* WARP Note */
