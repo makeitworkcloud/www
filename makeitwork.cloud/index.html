@@ -89,6 +89,11 @@
         align-items: center;
         padding: 2rem 1rem;
         line-height: 1.6;
+        -webkit-font-smoothing: none;
+        -moz-osx-font-smoothing: grayscale;
+        font-smooth: never;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
       }
 
       /* ASCII Art Header */
@@ -114,13 +119,13 @@
 
       @media (max-width: 600px) {
         .subheader {
-          font-size: 0.9rem;
+          font-size: 16px;
         }
       }
 
       @media (max-width: 400px) {
         .subheader {
-          font-size: 0.8rem;
+          font-size: 16px;
           letter-spacing: 0.05em;
         }
       }
@@ -143,7 +148,7 @@
 
       @media (max-width: 400px) {
         .site-title {
-          font-size: 1.75rem;
+          font-size: 24px;
         }
       }
 
