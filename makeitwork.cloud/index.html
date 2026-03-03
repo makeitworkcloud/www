@@ -331,6 +331,75 @@
         color: var(--gold-dim);
       }
 
+      /* Maintenance Banner */
+      .maintenance-banner {
+        width: 100%;
+        max-width: 900px;
+        margin-bottom: 2rem;
+        padding: 1rem 1.5rem;
+        background: linear-gradient(
+          135deg,
+          rgba(201, 162, 39, 0.15) 0%,
+          rgba(139, 115, 85, 0.1) 100%
+        );
+        border: 1px solid var(--border-gold);
+        border-left: 4px solid var(--gold);
+        opacity: 0;
+        animation: fadeIn 1s ease-out 0.5s forwards;
+      }
+
+      .maintenance-content {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .maintenance-icon {
+        font-size: 1.5rem;
+        color: var(--gold);
+        flex-shrink: 0;
+      }
+
+      .maintenance-text {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+
+      .maintenance-text strong {
+        color: var(--gold);
+        font-family: "IBM VGA 9x16", monospace;
+        font-size: 16px;
+      }
+
+      .maintenance-text span {
+        color: var(--text-muted);
+        font-family: "IBM VGA 8x14", monospace;
+        font-size: 14px;
+      }
+
+      @media (max-width: 600px) {
+        .maintenance-banner {
+          padding: 0.875rem 1rem;
+        }
+
+        .maintenance-content {
+          gap: 0.75rem;
+        }
+
+        .maintenance-icon {
+          font-size: 1.25rem;
+        }
+
+        .maintenance-text strong {
+          font-size: 14px;
+        }
+
+        .maintenance-text span {
+          font-size: 12px;
+        }
+      }
+
       /* Animations */
       @keyframes fadeIn {
         from {
@@ -540,6 +609,20 @@
       <h1 class="site-title">MAKE IT WORK</h1>
       <p class="subheader">Upon hearing this, the employee was enlightened.</p>
     </header>
+
+    <!-- Maintenance Banner -->
+    <div class="maintenance-banner">
+      <div class="maintenance-content">
+        <i class="fa-solid fa-triangle-exclamation maintenance-icon"></i>
+        <div class="maintenance-text">
+          <strong>Down for Maintenance</strong>
+          <span
+            >Several services will be unavailable this week while hardware
+            maintenance tasks are performed.</span
+          >
+        </div>
+      </div>
+    </div>
 
     <!-- Cloud Resources Grid -->
     <main class="portal">
