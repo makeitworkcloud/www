@@ -1,7 +1,7 @@
 {
   "name": "Make IT Work",
   "short_name": "Make IT Work",
-  "description": "Make IT Work Cloud - DevOps Portal",
+  "description": "A curated collection of self-hosted DevOps tools: Ansible, Argo CD, OpenShift, Grafana, and more.",
   "start_url": "/",
   "scope": "/",
   "id": "/",

@@ -3,6 +3,8 @@ const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
   '/site.webmanifest',
+  '/robots.txt',
+  '/sitemap.xml',
   '/favicon.ico',
   '/favicon-16x16.png',
   '/favicon-32x32.png',
