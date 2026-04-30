@@ -1,7 +1,7 @@
 {
   "name": "Make IT Work",
   "short_name": "Make IT Work",
-  "description": "A curated collection of self-hosted DevOps tools: Ansible, Argo CD, OpenShift, Grafana, and more.",
+  "description": "A curated collection of self-hosted DevOps tools: Argo CD, Forgejo, Grafana, Headlamp, and more.",
   "start_url": "/",
   "scope": "/",
   "id": "/",
