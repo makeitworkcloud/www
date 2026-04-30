@@ -5,11 +5,11 @@
     <meta charset="UTF-8" />
     <meta
       name="description"
-      content="A curated collection of self-hosted DevOps tools: Ansible, Argo CD, OpenShift, Grafana, and more. Personal cloud infrastructure showcase by Steven Welch."
+      content="A curated collection of self-hosted DevOps tools: Argo CD, Forgejo, Grafana, Headlamp, and more. Personal cloud infrastructure showcase by Steven Welch."
     />
     <meta
       name="keywords"
-      content="Make IT Work, DevOps, homelab, self-hosted, AWS, Cloudflare, Ansible, Kubernetes, OpenShift, GitOps, Argo CD, Grafana, infrastructure"
+      content="Make IT Work, DevOps, homelab, self-hosted, AWS, Cloudflare, Kubernetes, k3s, GitOps, Argo CD, Forgejo, Grafana, Headlamp, infrastructure"
     />
     <meta name="author" content="Steven Welch" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -26,7 +26,7 @@
     />
     <meta
       property="og:description"
-      content="A curated collection of self-hosted DevOps tools: Ansible, Argo CD, OpenShift, Grafana, and more."
+      content="A curated collection of self-hosted DevOps tools: Argo CD, Forgejo, Grafana, Headlamp, and more."
     />
     <meta
       property="og:image"
@@ -658,7 +658,7 @@
       <p class="subheader">Upon hearing this, the employee was enlightened.</p>
     </header>
 
-    <!-- Maintenance Banner -->
+    <!-- Maintenance Banner — re-enable when needed
     <div class="maintenance-banner">
       <div class="maintenance-content">
         <i class="fa-solid fa-triangle-exclamation maintenance-icon"></i>
@@ -671,23 +671,13 @@
         </div>
       </div>
     </div>
+    -->
+
 
     <!-- Cloud Resources Grid -->
     <main class="portal">
       <div class="portal-border">
         <div class="resource-grid">
-          <a
-            class="resource"
-            href="https://ansible.makeitwork.cloud/"
-            title="Ansible Automation Platform"
-          >
-            <i class="fa-brands fa-redhat resource-icon"></i>
-            <div class="resource-content">
-              <div class="resource-name">Ansible</div>
-              <div class="resource-cmd">ansible-playbook</div>
-            </div>
-          </a>
-
           <a
             class="resource"
             href="https://argocd.makeitwork.cloud/"
@@ -732,6 +722,18 @@
 
           <a
             class="resource"
+            href="https://forgejo.makeitwork.cloud/"
+            title="Forgejo Self-hosted Git"
+          >
+            <i class="fa-brands fa-forgejo resource-icon"></i>
+            <div class="resource-content">
+              <div class="resource-name">Forgejo</div>
+              <div class="resource-cmd">git push origin</div>
+            </div>
+          </a>
+
+          <a
+            class="resource"
             href="https://makeitwork.cloud/github"
             title="GitHub Organization"
           >
@@ -761,6 +763,18 @@
 
           <a
             class="resource"
+            href="https://headlamp.makeitwork.cloud/"
+            title="Headlamp Kubernetes Dashboard"
+          >
+            <i class="fa-brands fa-kubernetes resource-icon"></i>
+            <div class="resource-content">
+              <div class="resource-name">Headlamp</div>
+              <div class="resource-cmd">kubectl get pods</div>
+            </div>
+          </a>
+
+          <a
+            class="resource"
             href="https://onion.makeitwork.cloud"
             title="Onion Services Directory"
           >
@@ -785,20 +799,6 @@
             <div class="resource-content">
               <div class="resource-name">OpenPGP</div>
               <div class="resource-cmd">gpg --verify</div>
-            </div>
-          </a>
-
-          <a
-            class="resource"
-            href="https://console-openshift-console.apps.makeitwork.cloud/"
-            title="OpenShift Console"
-          >
-            <i class="fa-brands fa-redhat resource-icon"></i>
-            <div class="resource-content">
-              <div class="resource-name">
-                OpenShift<span style="color: var(--gold-dim)">*</span>
-              </div>
-              <div class="resource-cmd">oc login</div>
             </div>
           </a>
 
@@ -852,10 +852,6 @@
               <div class="resource-cmd">warp-cli connect</div>
             </div>
           </a>
-        </div>
-
-        <div class="warp-note">
-          <span>*</span> OpenShift requires WARP tunnel connection
         </div>
       </div>
 
