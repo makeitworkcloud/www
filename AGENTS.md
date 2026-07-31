@@ -1,8 +1,15 @@
 # Operational Context
 
 - **Type:** Static Website
-- **Test:** `pre-commit run -a`
+- **Static checks:** `pre-commit run -a`, `node --check makeitwork.cloud/sw.js`
 - **Lint:** `actionlint`, `prettier`
+
+# Production Deployment
+
+**Warning:** A successful push to `main` S3-syncs both `makeitwork.cloud/` and `onion.makeitwork.cloud/` to production with `--delete`, then purges the Cloudflare cache. Files absent from either source directory are deleted from the corresponding bucket.
+
+Use a branch and pull request for changes. Do not push any branch or trigger a
+deployment unless explicitly requested.
 
 # context-mode — MANDATORY routing rules
 

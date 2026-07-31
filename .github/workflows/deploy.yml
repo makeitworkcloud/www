@@ -12,8 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: pre-commit tests
+      - name: Static checks
         uses: pre-commit/action@v3.0.1
+
+      - name: Check service worker syntax
+        run: node --check makeitwork.cloud/sw.js
 
       - uses: jakejarvis/s3-sync-action@master
         with:
