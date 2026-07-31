@@ -3,6 +3,7 @@
 - **Type:** Static Website
 - **Static checks:** `pre-commit run -a`, `node --check makeitwork.cloud/sw.js`
 - **Lint:** `actionlint`, `prettier`
+- **Pull request CI:** Enforces secret scanning and static checks.
 
 # Production Deployment
 
