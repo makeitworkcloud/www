@@ -29,3 +29,9 @@ cluster.
 The JWKS file must contain only public key material for the k3s ServiceAccount
 token signing key. Never commit the private signing key, AWS credentials, KMS key
 IDs, kubeconfigs, or decrypted SOPS values here.
+
+This static issuer is for Kubernetes ServiceAccount tokens used by AWS STS; it
+is not the human kubectl login provider and does not expose the cluster API.
+Maintainer kubectl access uses Cloudflare Access plus ArgoCD Dex as documented
+in the
+[`kustomize-cluster` README](https://github.com/makeitworkcloud/kustomize-cluster#kubectl-access).
