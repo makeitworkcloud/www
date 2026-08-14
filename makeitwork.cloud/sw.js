@@ -14,7 +14,6 @@ const ASSETS_TO_CACHE = [
   '/Web437_IBM_EGA_8x8.woff'
 ];
 
-// Install: cache core assets
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -24,7 +23,6 @@ self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
 
-// Activate: clean old caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -38,9 +36,8 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Fetch: network-first with cache fallback
+// Network-first with cache fallback.
 self.addEventListener('fetch', (event) => {
-  // Skip non-GET requests
   if (event.request.method !== 'GET') return;
 
   // Skip cross-origin requests (CDN fonts, Font Awesome, etc.)
@@ -49,7 +46,7 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     fetch(event.request)
       .then((response) => {
-        // Clone and cache successful responses
+        // Response bodies are consumable, so cloning preserves the original for the caller.
         if (response.ok) {
           const responseClone = response.clone();
           caches.open(CACHE_NAME).then((cache) => {
@@ -59,7 +56,6 @@ self.addEventListener('fetch', (event) => {
         return response;
       })
       .catch(() => {
-        // Fallback to cache on network failure
         return caches.match(event.request);
       })
   );
