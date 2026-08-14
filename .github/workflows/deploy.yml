@@ -1,6 +1,4 @@
 ---
-# https://github.com/aws-actions/configure-aws-credentials
-#
 name: deploy
 on:
   push:
@@ -10,16 +8,16 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7.0.1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Static checks
-        uses: pre-commit/action@v3.0.1
+        uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
 
       - name: Check service worker syntax
         run: node --check makeitwork.cloud/sw.js
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v6.2.3
+        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -34,7 +32,7 @@ jobs:
           --exclude 'README.md'
 
       - name: Configure onion AWS credentials
-        uses: aws-actions/configure-aws-credentials@v6.2.3
+        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
         with:
           aws-access-key-id: ${{ secrets.ONION_AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.ONION_AWS_SECRET_ACCESS_KEY }}

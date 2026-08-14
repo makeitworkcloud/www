@@ -19,7 +19,6 @@
       http-equiv="onion-location"
       content="http://zvr4i7wkppsuj3czsxk3dtdkodbrvobre2ao57z4nebqgyijuwp6znad.onion"
     />
-    <!-- Open Graph -->
     <meta
       property="og:title"
       content="Make IT Work - Personal DevOps Portal & Cloud Infrastructure"
@@ -35,7 +34,6 @@
     <meta property="og:url" content="https://makeitwork.cloud/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Make IT Work" />
-    <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Make IT Work - DevOps Portal" />
     <meta
@@ -46,7 +44,6 @@
       name="twitter:image"
       content="https://makeitwork.cloud/android-chrome-512x512.png"
     />
-    <!-- Structured Data -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -68,7 +65,6 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#0a0a0a" />
-    <!-- iOS PWA -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta
       name="apple-mobile-web-app-status-bar-style"
@@ -144,7 +140,6 @@
         image-rendering: crisp-edges;
       }
 
-      /* ASCII Art Header */
       .cloud-header {
         text-align: center;
         margin-bottom: 2.5rem;
@@ -200,7 +195,6 @@
         }
       }
 
-      /* Cloud Resources Grid */
       .portal {
         width: 100%;
         max-width: 900px;
@@ -262,7 +256,6 @@
         vertical-align: middle;
       }
 
-      /* Resource Grid */
       .resource-grid {
         display: grid;
         grid-template-columns: 1fr;
@@ -282,7 +275,6 @@
         }
       }
 
-      /* Individual Resource Card */
       .resource {
         position: relative;
         display: flex;
@@ -365,7 +357,6 @@
         color: var(--gold-dim);
       }
 
-      /* WARP Note */
       .warp-note {
         font-family: "IBM VGA 8x14", monospace;
         font-size: 14px;
@@ -379,7 +370,6 @@
         color: var(--gold-dim);
       }
 
-      /* Maintenance Banner */
       .maintenance-banner {
         width: 100%;
         max-width: 900px;
@@ -448,7 +438,6 @@
         }
       }
 
-      /* Animations */
       @keyframes fadeIn {
         from {
           opacity: 0;
@@ -526,7 +515,6 @@
         }
       }
 
-      /* Scrollbar */
       ::-webkit-scrollbar {
         width: 6px;
       }
@@ -544,7 +532,6 @@
         background: var(--gold-dim);
       }
 
-      /* Install Banner */
       .install-banner {
         position: fixed;
         bottom: 0;
@@ -636,7 +623,6 @@
         color: var(--text-muted);
       }
 
-      /* iOS install instructions */
       .ios-instructions {
         display: none;
         font-family: "IBM VGA 8x14", monospace;
@@ -652,28 +638,11 @@
     </style>
   </head>
   <body>
-    <!-- Header -->
     <header class="cloud-header">
       <h1 class="site-title" itemprop="name">MAKE IT WORK</h1>
       <p class="subheader">Upon hearing this, the employee was enlightened.</p>
     </header>
 
-    <!-- Maintenance Banner — re-enable when needed
-    <div class="maintenance-banner">
-      <div class="maintenance-content">
-        <i class="fa-solid fa-triangle-exclamation maintenance-icon"></i>
-        <div class="maintenance-text">
-          <strong>Down for Maintenance</strong>
-          <span
-            >Several services will be unavailable this week while hardware
-            maintenance tasks are performed.</span
-          >
-        </div>
-      </div>
-    </div>
-    -->
-
-    <!-- Cloud Resources Grid -->
     <main class="portal">
       <div class="portal-border">
         <div class="resource-grid">
@@ -879,7 +848,6 @@
       </nav>
     </main>
 
-    <!-- Install Banner -->
     <div id="installBanner" class="install-banner">
       <div class="install-banner-content">
         <img
@@ -905,12 +873,10 @@
     </div>
 
     <script>
-      // Service Worker Registration
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("/sw.js").catch(() => {});
       }
 
-      // Install Prompt Logic
       (() => {
         const banner = document.getElementById("installBanner");
         const installBtn = document.getElementById("installBtn");
@@ -921,7 +887,6 @@
         const DISMISSED_KEY = "pwa-install-dismissed";
         const DISMISS_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days
 
-        // Check if already installed or dismissed
         const isStandalone =
           window.matchMedia("(display-mode: standalone)").matches ||
           navigator.standalone === true;
@@ -932,17 +897,14 @@
 
         if (isStandalone || wasDismissed) return;
 
-        // Detect iOS
         const isIOS =
           /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
         if (isIOS) {
-          // iOS: Show banner with manual instructions
           iosInstructions.style.display = "block";
           installBtn.style.display = "none";
           setTimeout(() => banner.classList.add("visible"), 1000);
         } else {
-          // Android/Desktop: Use beforeinstallprompt
           window.addEventListener("beforeinstallprompt", (e) => {
             e.preventDefault();
             deferredPrompt = e;
@@ -960,13 +922,11 @@
           });
         }
 
-        // Dismiss button
         dismissBtn.addEventListener("click", () => {
           localStorage.setItem(DISMISSED_KEY, Date.now().toString());
           banner.classList.remove("visible");
         });
 
-        // Hide if installed later
         window.addEventListener("appinstalled", () => {
           banner.classList.remove("visible");
           deferredPrompt = null;
