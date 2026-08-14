@@ -35,3 +35,11 @@ is not the human kubectl login provider and does not expose the cluster API.
 Maintainer kubectl access uses Cloudflare Access plus ArgoCD Dex as documented
 in the
 [`kustomize-cluster` README](https://github.com/makeitworkcloud/kustomize-cluster#kubectl-access).
+
+# CI and deployment
+
+Pull requests run static pre-commit checks only. Pushes to `main` deploy the
+repository's two source directories directly to their S3 buckets—there is no
+site build step—using separate static AWS credentials and `aws s3 sync` with
+`--delete --acl public-read --follow-symlinks`. After both syncs succeed, the
+workflow purges the Cloudflare zone cache.
