@@ -1,0 +1,937 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>Make IT Work - Personal DevOps Portal & Cloud Infrastructure</title>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="A curated collection of self-hosted DevOps tools: Argo CD, Forgejo, Grafana, and more. Personal cloud infrastructure showcase by Steven Welch."
+    />
+    <meta
+      name="keywords"
+      content="Make IT Work, DevOps, homelab, self-hosted, AWS, Cloudflare, Kubernetes, k3s, GitOps, Argo CD, Forgejo, Grafana, infrastructure"
+    />
+    <meta name="author" content="Steven Welch" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://makeitwork.cloud/" />
+    <meta
+      http-equiv="onion-location"
+      content="http://zvr4i7wkppsuj3czsxk3dtdkodbrvobre2ao57z4nebqgyijuwp6znad.onion"
+    />
+    <meta
+      property="og:title"
+      content="Make IT Work - Personal DevOps Portal & Cloud Infrastructure"
+    />
+    <meta
+      property="og:description"
+      content="A curated collection of self-hosted DevOps tools: Argo CD, Forgejo, Grafana, and more."
+    />
+    <meta
+      property="og:image"
+      content="https://makeitwork.cloud/android-chrome-512x512.png"
+    />
+    <meta property="og:url" content="https://makeitwork.cloud/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Make IT Work" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Make IT Work - DevOps Portal" />
+    <meta
+      name="twitter:description"
+      content="Personal DevOps infrastructure showcase with self-hosted services."
+    />
+    <meta
+      name="twitter:image"
+      content="https://makeitwork.cloud/android-chrome-512x512.png"
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Make IT Work",
+        "url": "https://makeitwork.cloud/",
+        "description": "Personal DevOps portal showcasing self-hosted cloud infrastructure and tools",
+        "author": {
+          "@type": "Person",
+          "name": "Steven Welch",
+          "email": "steven@makeitwork.cloud",
+          "url": "https://github.com/xnoto"
+        }
+      }
+    </script>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="Make IT Work" />
+    <link rel="apple-touch-startup-image" href="/android-chrome-512x512.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css"
+    />
+    <style>
+      @font-face {
+        font-family: "IBM EGA 8x8";
+        src: url("Web437_IBM_EGA_8x8.woff") format("woff");
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "IBM VGA 8x14";
+        src: url("Web437_IBM_VGA_8x14.woff") format("woff");
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "IBM VGA 9x16";
+        src: url("Web437_IBM_VGA_9x16.woff") format("woff");
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      :root {
+        --bg-dark: #0a0a0a;
+        --bg-card: #111111;
+        --bg-card-hover: #1a1a1a;
+        --gold-dim: #8b7355;
+        --gold: #c9a227;
+        --gold-bright: #ffd700;
+        --gold-glow: rgba(201, 162, 39, 0.4);
+        --text-dim: #555;
+        --text-muted: #888;
+        --text-light: #ccc;
+        --border-dim: #222;
+        --border-gold: #3d3520;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        font-size: 16px;
+      }
+
+      body {
+        font-family: "IBM VGA 9x16", monospace;
+        background-color: var(--bg-dark);
+        color: var(--text-light);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 1rem;
+        line-height: 1.6;
+        -webkit-font-smoothing: none;
+        -moz-osx-font-smoothing: grayscale;
+        font-smooth: never;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+      }
+
+      .cloud-header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+        opacity: 0;
+        animation: fadeIn 1s ease-out forwards;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+
+      .subheader {
+        margin-top: 1.5rem;
+        font-size: 16px;
+        font-family: "IBM VGA 9x16", monospace;
+        font-weight: 400;
+        color: var(--text-muted);
+        letter-spacing: 0.05em;
+      }
+
+      @media (max-width: 600px) {
+        .subheader {
+          font-size: 16px;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .subheader {
+          font-size: 16px;
+          letter-spacing: 0.05em;
+        }
+      }
+
+      .site-title {
+        font-family: "IBM EGA 8x8", monospace;
+        color: var(--gold-dim);
+        font-size: 4rem;
+        font-weight: normal;
+        text-shadow: 3px 3px 0 #333;
+        letter-spacing: 0.1em;
+        animation: flicker 32s ease-in-out infinite;
+      }
+
+      @media (max-width: 600px) {
+        .site-title {
+          font-size: 2.5rem;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .site-title {
+          font-size: 24px;
+        }
+      }
+
+      .portal {
+        width: 100%;
+        max-width: 900px;
+        opacity: 0;
+        animation: fadeIn 1s ease-out 0.3s forwards;
+      }
+
+      .portal-border {
+        border: 1px solid var(--border-gold);
+        padding: 1.5rem;
+        background:
+          linear-gradient(135deg, var(--border-gold) 0%, transparent 50%),
+          linear-gradient(-135deg, var(--border-gold) 0%, transparent 50%),
+          var(--bg-dark);
+        background-size:
+          20px 20px,
+          20px 20px,
+          100% 100%;
+        background-position:
+          top left,
+          top right,
+          center;
+        background-repeat: no-repeat;
+      }
+
+      .contact-icons {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+      }
+
+      .contact-icon {
+        color: var(--text-dim);
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        padding: 0.4rem;
+      }
+
+      .contact-icon:hover {
+        color: var(--gold);
+        text-shadow: 0 0 12px var(--gold-glow);
+        transform: translateY(-2px);
+      }
+
+      .contact-icon svg {
+        width: 1.1rem;
+        height: 1.1rem;
+        fill: currentColor;
+        vertical-align: middle;
+      }
+
+      .resource-icon svg {
+        width: 1.25rem;
+        height: 1.25rem;
+        fill: currentColor;
+        vertical-align: middle;
+      }
+
+      .resource-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+      }
+
+      @media (min-width: 480px) {
+        .resource-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (min-width: 768px) {
+        .resource-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1rem;
+        }
+      }
+
+      .resource {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+        padding: 1rem;
+        background: var(--bg-card);
+        border: 1px solid var(--border-dim);
+        text-decoration: none;
+        color: var(--text-light);
+        transition: all 0.3s ease;
+        overflow: hidden;
+      }
+
+      .resource::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 100%;
+        background: var(--gold-dim);
+        transform: scaleY(0);
+        transition: transform 0.3s ease;
+      }
+
+      .resource:hover {
+        background: var(--bg-card-hover);
+        border-color: var(--border-gold);
+        box-shadow:
+          0 0 20px rgba(201, 162, 39, 0.1),
+          inset 0 0 30px rgba(201, 162, 39, 0.03);
+        transform: translateY(-2px);
+      }
+
+      .resource:hover::before {
+        transform: scaleY(1);
+        background: var(--gold);
+        box-shadow: 0 0 10px var(--gold-glow);
+      }
+
+      .resource-icon {
+        font-size: 1.25rem;
+        color: var(--gold-dim);
+        width: 1.5rem;
+        text-align: center;
+        transition: all 0.3s ease;
+      }
+
+      .resource:hover .resource-icon {
+        color: var(--gold-bright);
+        text-shadow: 0 0 15px var(--gold-glow);
+      }
+
+      .resource-content {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .resource-name {
+        font-size: 16px;
+        font-weight: 500;
+        color: var(--text-light);
+        margin-bottom: 0.15rem;
+        transition: color 0.3s ease;
+      }
+
+      .resource:hover .resource-name {
+        color: var(--gold);
+      }
+
+      .resource-cmd {
+        font-family: "IBM VGA 8x14", monospace;
+        font-size: 14px;
+        color: var(--text-dim);
+      }
+
+      .resource-cmd::before {
+        content: "$ ";
+        color: var(--gold-dim);
+      }
+
+      .warp-note {
+        font-family: "IBM VGA 8x14", monospace;
+        font-size: 14px;
+        color: var(--text-dim);
+        padding-top: 1rem;
+        margin-top: 1rem;
+        text-align: center;
+      }
+
+      .warp-note span {
+        color: var(--gold-dim);
+      }
+
+      .maintenance-banner {
+        width: 100%;
+        max-width: 900px;
+        margin-bottom: 2rem;
+        padding: 1rem 1.5rem;
+        background: linear-gradient(
+          135deg,
+          rgba(201, 162, 39, 0.15) 0%,
+          rgba(139, 115, 85, 0.1) 100%
+        );
+        border: 1px solid var(--border-gold);
+        border-left: 4px solid var(--gold);
+        opacity: 0;
+        animation: fadeIn 1s ease-out 0.5s forwards;
+      }
+
+      .maintenance-content {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .maintenance-icon {
+        font-size: 1.5rem;
+        color: var(--gold);
+        flex-shrink: 0;
+      }
+
+      .maintenance-text {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+
+      .maintenance-text strong {
+        color: var(--gold);
+        font-family: "IBM VGA 9x16", monospace;
+        font-size: 16px;
+      }
+
+      .maintenance-text span {
+        color: var(--text-muted);
+        font-family: "IBM VGA 8x14", monospace;
+        font-size: 14px;
+      }
+
+      @media (max-width: 600px) {
+        .maintenance-banner {
+          padding: 0.875rem 1rem;
+        }
+
+        .maintenance-content {
+          gap: 0.75rem;
+        }
+
+        .maintenance-icon {
+          font-size: 1.25rem;
+        }
+
+        .maintenance-text strong {
+          font-size: 14px;
+        }
+
+        .maintenance-text span {
+          font-size: 12px;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes flicker {
+        0% {
+          opacity: 0.75;
+        }
+        5% {
+          opacity: 0.85;
+        }
+        10% {
+          opacity: 0.7;
+        }
+        15% {
+          opacity: 0.95;
+        }
+        20% {
+          opacity: 0.8;
+        }
+        25% {
+          opacity: 0.88;
+        }
+        30% {
+          opacity: 0.72;
+        }
+        35% {
+          opacity: 1;
+        }
+        40% {
+          opacity: 0.78;
+        }
+        45% {
+          opacity: 0.68;
+        }
+        50% {
+          opacity: 0.9;
+        }
+        55% {
+          opacity: 0.76;
+        }
+        60% {
+          opacity: 1;
+        }
+        65% {
+          opacity: 0.82;
+        }
+        70% {
+          opacity: 0.7;
+        }
+        75% {
+          opacity: 0.92;
+        }
+        80% {
+          opacity: 0.74;
+        }
+        85% {
+          opacity: 0.86;
+        }
+        90% {
+          opacity: 0.71;
+        }
+        95% {
+          opacity: 0.96;
+        }
+        100% {
+          opacity: 0.75;
+        }
+      }
+
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: var(--bg-dark);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: var(--border-gold);
+        border-radius: 3px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--gold-dim);
+      }
+
+      .install-banner {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--bg-card);
+        border-top: 1px solid var(--border-gold);
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+        z-index: 1000;
+      }
+
+      .install-banner.visible {
+        transform: translateY(0);
+      }
+
+      .install-banner-content {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex: 1;
+        min-width: 0;
+      }
+
+      .install-banner-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        flex-shrink: 0;
+      }
+
+      .install-banner-text {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .install-banner-title {
+        font-size: 16px;
+        font-weight: 500;
+        color: var(--gold);
+      }
+
+      .install-banner-subtitle {
+        font-family: "IBM VGA 8x14", monospace;
+        font-size: 14px;
+        color: var(--text-muted);
+      }
+
+      .install-banner-actions {
+        display: flex;
+        gap: 0.5rem;
+        flex-shrink: 0;
+      }
+
+      .install-btn {
+        background: var(--gold-dim);
+        color: var(--bg-dark);
+        border: none;
+        padding: 0.5rem 1rem;
+        font-family: "IBM VGA 9x16", monospace;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .install-btn:hover {
+        background: var(--gold);
+      }
+
+      .install-dismiss {
+        background: transparent;
+        color: var(--text-dim);
+        border: 1px solid var(--border-dim);
+        padding: 0.5rem 0.75rem;
+        font-family: "IBM VGA 9x16", monospace;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .install-dismiss:hover {
+        border-color: var(--text-muted);
+        color: var(--text-muted);
+      }
+
+      .ios-instructions {
+        display: none;
+        font-family: "IBM VGA 8x14", monospace;
+        font-size: 14px;
+        color: var(--text-muted);
+        text-align: center;
+        padding: 0.5rem;
+      }
+
+      .ios-instructions i {
+        color: var(--gold-dim);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="cloud-header">
+      <h1 class="site-title" itemprop="name">MAKE IT WORK</h1>
+      <p class="subheader">Upon hearing this, the employee was enlightened.</p>
+    </header>
+
+    <main class="portal">
+      <div class="portal-border">
+        <div class="resource-grid">
+          <a
+            class="resource"
+            href="https://argocd.makeitwork.cloud/"
+            title="Argo CD GitOps"
+          >
+            <span class="resource-icon"
+              ><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="50" cy="42" rx="40" ry="35" fill="currentColor" />
+                <ellipse cx="34" cy="38" rx="14" ry="14" fill="#fff" />
+                <ellipse cx="66" cy="38" rx="14" ry="14" fill="#fff" />
+                <circle cx="34" cy="40" r="5" fill="#090B0B" />
+                <circle cx="66" cy="40" r="5" fill="#090B0B" />
+                <path
+                  d="M38 58q12 8 24 0"
+                  stroke="#090B0B"
+                  stroke-width="3"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M18 70q-8 12-4 20c2 4 6 4 8 0l12-18"
+                  fill="currentColor"
+                />
+                <path
+                  d="M30 72q-4 14 0 20c2 4 6 3 7-1l5-16"
+                  fill="currentColor"
+                />
+                <path
+                  d="M70 72q4 14 0 20c-2 4-6 3-7-1l-5-16"
+                  fill="currentColor"
+                />
+                <path
+                  d="M82 70q8 12 4 20c-2 4-6 4-8 0l-12-18"
+                  fill="currentColor"
+                /></svg
+            ></span>
+            <div class="resource-content">
+              <div class="resource-name">Argo CD</div>
+              <div class="resource-cmd">argocd app sync</div>
+            </div>
+          </a>
+
+          <a
+            class="resource"
+            href="https://forgejo.makeitwork.cloud/"
+            title="Forgejo Self-hosted Git"
+          >
+            <i class="fa-brands fa-git-alt resource-icon"></i>
+            <div class="resource-content">
+              <div class="resource-name">Forgejo</div>
+              <div class="resource-cmd">git push origin</div>
+            </div>
+          </a>
+
+          <a
+            class="resource"
+            href="https://makeitwork.cloud/github"
+            title="GitHub Organization"
+          >
+            <i class="fa-brands fa-github resource-icon"></i>
+            <div class="resource-content">
+              <div class="resource-name">GitHub</div>
+              <div class="resource-cmd">git pull</div>
+            </div>
+          </a>
+
+          <a
+            class="resource"
+            href="https://grafana.makeitwork.cloud/"
+            title="Grafana Observability"
+          >
+            <span class="resource-icon"
+              ><svg viewBox="0 0 351 365" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M342 161.2a127.9 127.9 0 0 0-13-45.9 139 139 0 0 0-27-37 53 53 0 0 0-6.2-37.9 56 56 0 0 0-36.5 9.4l-2.3-1a138 138 0 0 0-32.3-8.9l-2-.3A68 68 0 0 0 189.8 1c-27.3 17.3-32.4 41.5-32.4 41.5l-.3 1.4-4.5 1.3-6.2 2.2a161 161 0 0 0-18.4 8.5q-5.8 3.3-11.4 7.1l-1-.4c-37.8-14.4-71.3 2.9-71.3 2.9A103 103 0 0 0 63 135.6l-2.5 7.5a173 173 0 0 0-6.7 32.3C18.8 192.7 8.5 228 8.5 228c29.1 33.5 63.1 35.6 63.1 35.6l.1-.1A154 154 0 0 0 94 293.7c-10.6 30.4 1.5 55.6 1.5 55.6a91 91 0 0 0 58.2-17.7q4.8 1.7 9.8 2.9a143 143 0 0 0 38 4.6h3.6l1.6-.1v.1c15.3 21.8 42.1 24.9 42.1 24.9a67 67 0 0 0 20.2-44.4v-1.8q6-4.2 11.4-9.1 11.5-10.4 19.9-23.3l1.5-2.4c21.6 1.2 36.9-13.4 36.9-13.4a56 56 0 0 0-19.1-35.6l-.3-.2-.2-.2-.5-.3.3-4.1q.3-3.7.2-7.3v-3.8l-.1-1.5-.1-2-.2-1.9-.2-1.9-.2-1.9-.3-1.9a96 96 0 0 0-12.4-34.6 92 92 0 0 0-41.4-36.7 91 91 0 0 0-38.4-7.9h-3.2l-1.6.1-1.7.1q-3.3.3-6.5.9a71 71 0 0 0-58.3 65.2l-.1 5.2v1.3l.1 1.4.2 2.5a55 55 0 0 0 23.4 39.9 54 54 0 0 0 29.5 9.1h2.6l.9-.1 1.5-.1.4-.1.5-.1.9-.1 1.7-.3 1.6-.4q1.6-.4 3.1-.9 3-1 5.7-2.4t5-3l1.3-1a4 4 0 0 0 .6-5.3 4 4 0 0 0-4.7-.9l-1.2.6a33 33 0 0 1-9 3l-2.5.3-1.3.1h-2.4l-1.5-.1h-.6l-.7-.1-1.4-.2a39 39 0 0 1-21-9.8 38 38 0 0 1-12.6-29l.1-1.8v-.8l.1-.9.5-3.6a48 48 0 0 1 34.1-37.6q3.8-1 7.8-1.4l4-.2h3.1l1.1.1q4.3.3 8.5 1.3a60 60 0 0 1 40.4 31.2q4.1 8 5.5 16.9l.5 4.5.1 1.1.1 1.1v4.3l-.1 2.6a81 81 0 0 1-5.4 23.7q-3.6 9-9.4 17.1a77 77 0 0 1-49 30.4q-4.8.9-9.8 1h-5l-5.3-.3a105 105 0 0 1-40.1-11.5 103 103 0 0 1-54-83.1l-.1-1.3v-8.9a120 120 0 0 1 5-30.7q2.9-10.1 7.1-19.3a109 109 0 0 1 28.9-38 102 102 0 0 1 19.5-12l2.1-.9 2.1-.9q4.2-1.8 8.7-3.1l2.2-.7 2.2-.6 4.5-1.1 2.3-.5 2.3-.5 2.3-.4 1.1-.2 1.2-.2 2.3-.3 2.6-.3 2.6-.3 1.6-.2 1.1-.1.5-.1h.6l2.6-.2 1.3-.1h1l2.2-.1a129 129 0 0 1 25.8 1.9 120 120 0 0 1 56.3 26.8l1.4 1.2 1.3 1.2 2.6 2.4 2.5 2.4 2.4 2.5a131 131 0 0 1 21.3 29.9l.6 1.2.6 1.2 1.1 2.4 1.1 2.3 1 2.3q1.9 4.5 3.3 8.6 2.2 6.6 3.5 11.7a3 3 0 0 0 3 2.1 3 3 0 0 0 2.6-2.8q.2-5.4-.5-12.8"
+                /></svg
+            ></span>
+            <div class="resource-content">
+              <div class="resource-name">Grafana</div>
+              <div class="resource-cmd">grafanactl</div>
+            </div>
+          </a>
+
+          <a
+            class="resource"
+            href="https://onion.makeitwork.cloud"
+            title="Onion Services Directory"
+          >
+            <span class="resource-icon"
+              ><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M50 5c-2 0-4 2-5 5-1 2-2 5-2 8 0 2 0 4 1 6-8 2-15 6-20 12-6 6-9 14-9 23 0 10 4 19 11 26s17 11 27 11 19-4 26-11 11-16 11-26c0-9-3-17-9-23-5-6-12-10-20-12 1-2 1-4 1-6 0-3-1-6-2-8-1-3-3-5-5-5zm2 25c7 0 13 3 18 8s7 11 7 18-2 14-7 19-11 8-18 8-14-3-19-8-7-12-7-19 2-13 7-18 12-8 19-8m0 8c-5 0-10 2-13 6-4 4-6 9-6 14s2 10 6 14c3 4 8 6 13 6s10-2 14-6 5-9 5-14a18.7 18.7 0 0 0-19-20m0 8c3 0 6 1 8 4 2 2 3 5 3 8q0 4.5-3 9c-2 2-5 3-8 3s-6-1-8-3c-2-3-4-6-4-9s2-6 4-8c2-3 5-4 8-4m0 7c-1 0-3 1-4 2s-1 3-1 4c0 2 0 3 1 4s3 2 4 2c2 0 3-1 4-2s2-2 2-4c0-1-1-3-2-4s-2-2-4-2"
+                /></svg
+            ></span>
+            <div class="resource-content">
+              <div class="resource-name">Onions</div>
+              <div class="resource-cmd">tor --hash-password</div>
+            </div>
+          </a>
+
+          <a
+            class="resource"
+            href="https://keys.openpgp.org/search?q=steven%40makeitwork.cloud"
+            title="OpenPGP Keys"
+          >
+            <i class="fa fa-key resource-icon"></i>
+            <div class="resource-content">
+              <div class="resource-name">OpenPGP</div>
+              <div class="resource-cmd">gpg --verify</div>
+            </div>
+          </a>
+
+          <a
+            class="resource"
+            href="https://plex.makeitwork.cloud"
+            title="Plex Media Server"
+          >
+            <span class="resource-icon"
+              ><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.6 0H4.7l7.7 12-7.7 12h7l7.6-12z" /></svg
+            ></span>
+            <div class="resource-content">
+              <div class="resource-name">Plex</div>
+              <div class="resource-cmd">yt-dlp --all-subs</div>
+            </div>
+          </a>
+
+          <a
+            class="resource"
+            href="https://makeitwork.cloud/public"
+            title="Public Files"
+          >
+            <i class="fa fa-cloud-download resource-icon"></i>
+            <div class="resource-content">
+              <div class="resource-name">Public</div>
+              <div class="resource-cmd">mega-cmd</div>
+            </div>
+          </a>
+
+          <a
+            class="resource"
+            href="https://status.makeitwork.cloud/"
+            title="Status Dashboard"
+          >
+            <i class="fa-solid fa-chart-simple resource-icon"></i>
+            <div class="resource-content">
+              <div class="resource-name">Status</div>
+              <div class="resource-cmd">uptime</div>
+            </div>
+          </a>
+
+          <a
+            class="resource"
+            href="https://makeitworkcloud.cloudflareaccess.com/warp"
+            title="Cloudflare WARP"
+          >
+            <i class="fa-brands fa-cloudflare resource-icon"></i>
+            <div class="resource-content">
+              <div class="resource-name">WARP</div>
+              <div class="resource-cmd">warp-cli connect</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <nav class="contact-icons">
+        <a
+          class="contact-icon"
+          href="https://discord.com/users/xnotocode_41639"
+          title="Discord"
+          ><i class="fa-brands fa-discord"></i
+        ></a>
+        <a
+          class="contact-icon"
+          href="mailto:steven@makeitwork.cloud"
+          title="Email"
+          ><i class="fa fa-envelope"></i
+        ></a>
+        <a class="contact-icon" href="https://github.com/xnoto" title="GitHub"
+          ><i class="fa-brands fa-github"></i
+        ></a>
+        <a
+          class="contact-icon"
+          href="https://linkedin.com/in/xnoto/"
+          title="LinkedIn"
+          ><i class="fa-brands fa-linkedin"></i
+        ></a>
+        <a class="contact-icon" href="https://mega.nz/C!Kws3DD7J" title="MEGA"
+          ><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm6 18h-3.5v-7.5L12 15l-2.5-4.5V18H6V6h3.5l2.5 4.5L14.5 6H18v12z"
+            /></svg
+        ></a>
+        <a
+          class="contact-icon"
+          href="https://steamcommunity.com/profiles/76561198378593108"
+          title="Steam"
+          ><i class="fa-brands fa-steam"></i
+        ></a>
+      </nav>
+    </main>
+
+    <div id="installBanner" class="install-banner">
+      <div class="install-banner-content">
+        <img
+          src="/android-chrome-192x192.png"
+          alt="Make IT Work - DevOps Portal Icon"
+          class="install-banner-icon"
+        />
+        <div class="install-banner-text">
+          <div class="install-banner-title">Install Make IT Work</div>
+          <div class="install-banner-subtitle">
+            Add to your home screen for quick access
+          </div>
+          <div id="iosInstructions" class="ios-instructions">
+            Tap <i class="fa fa-share-from-square"></i> then "Add to Home
+            Screen"
+          </div>
+        </div>
+      </div>
+      <div class="install-banner-actions">
+        <button id="installBtn" class="install-btn">Install</button>
+        <button id="dismissBtn" class="install-dismiss">Not now</button>
+      </div>
+    </div>
+
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js").catch(() => {});
+      }
+
+      (() => {
+        const banner = document.getElementById("installBanner");
+        const installBtn = document.getElementById("installBtn");
+        const dismissBtn = document.getElementById("dismissBtn");
+        const iosInstructions = document.getElementById("iosInstructions");
+
+        let deferredPrompt = null;
+        const DISMISSED_KEY = "pwa-install-dismissed";
+        const DISMISS_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days
+
+        const isStandalone =
+          window.matchMedia("(display-mode: standalone)").matches ||
+          navigator.standalone === true;
+        const dismissedAt = localStorage.getItem(DISMISSED_KEY);
+        const wasDismissed =
+          dismissedAt &&
+          Date.now() - parseInt(dismissedAt, 10) < DISMISS_DURATION;
+
+        if (isStandalone || wasDismissed) return;
+
+        const isIOS =
+          /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+        if (isIOS) {
+          iosInstructions.style.display = "block";
+          installBtn.style.display = "none";
+          setTimeout(() => banner.classList.add("visible"), 1000);
+        } else {
+          window.addEventListener("beforeinstallprompt", (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            setTimeout(() => banner.classList.add("visible"), 1000);
+          });
+
+          installBtn.addEventListener("click", async () => {
+            if (!deferredPrompt) return;
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === "accepted") {
+              banner.classList.remove("visible");
+            }
+            deferredPrompt = null;
+          });
+        }
+
+        dismissBtn.addEventListener("click", () => {
+          localStorage.setItem(DISMISSED_KEY, Date.now().toString());
+          banner.classList.remove("visible");
+        });
+
+        window.addEventListener("appinstalled", () => {
+          banner.classList.remove("visible");
+          deferredPrompt = null;
+        });
+      })();
+    </script>
+  </body>
+</html>
