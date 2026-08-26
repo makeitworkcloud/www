@@ -1,25 +1,42 @@
-# www
+# Make IT Work web portal
 
-# About this repo
+This repository contains the static content for `makeitwork.cloud` and
+`onion.makeitwork.cloud`. There is no application server or site build step;
+the source directories are deployed as-is.
 
-Serverless web content with GitHub Actions pushing changes to S3.
+## Technology
 
-# Google Fonts
+- **HTML5:** `makeitwork.cloud/index.html` is the public portal and
+  `onion.makeitwork.cloud/index.html` is the onion-services directory.
+- **CSS:** The public portal uses an embedded stylesheet and locally hosted
+  Web437 bitmap fonts. It does not use W3.CSS or Google Fonts.
+- **Icons:** Font Awesome 7.3.0 is loaded from cdnjs for portal and contact
+  icons.
+- **Progressive web app:** `makeitwork.cloud/site.webmanifest` provides
+  install metadata, and `makeitwork.cloud/sw.js` provides a network-first
+  service worker with an offline cache fallback for same-origin assets.
+- **Metadata:** The public portal includes standard Open Graph and Twitter
+  metadata plus Schema.org JSON-LD.
 
-- https://fonts.google.com/
+## References
 
-# W3.CSS Tutorial
+- [HTML and CSS — MDN Web Docs](https://developer.mozilla.org/docs/Web)
+- [Font Awesome](https://fontawesome.com/)
+- [Web app manifests — MDN Web Docs](https://developer.mozilla.org/docs/Web/Progressive_web_apps/Manifest)
+- [Service Worker API — MDN Web Docs](https://developer.mozilla.org/docs/Web/API/Service_Worker_API)
+- [Schema.org](https://schema.org/)
 
-- https://www.w3schools.com/w3css/
+## CI and deployment
 
-# Font Awesome Introduction
-
-- https://www.w3schools.com/icons/fontawesome_icons_intro.asp
-
-# CI and deployment
-
-Pull requests run static pre-commit checks only. Pushes to `main` deploy the
-repository's two source directories directly to their S3 buckets—there is no
-site build step—using separate static AWS credentials and `aws s3 sync` with
+Pull requests run static pre-commit checks only. A push to `main` deploys both
+source directories directly to their S3 buckets using `aws s3 sync` with
 `--delete --acl public-read --follow-symlinks`. After both syncs succeed, the
-workflow purges the Cloudflare zone cache.
+workflow purges the Cloudflare zone cache. Deployment uses separate GitHub
+Actions secrets for the public and onion buckets.
+
+## Local validation
+
+```sh
+pre-commit run --all-files
+node --check makeitwork.cloud/sw.js
+```
