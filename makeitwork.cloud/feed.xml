@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Hand-maintained Atom feed for makeitwork.cloud site updates.
+
+  To publish an update: add a new entry above the previous one, give it a
+  unique id (tag:makeitwork.cloud,YYYY-MM-DD:slug), set its updated stamp,
+  and bump the feed-level updated stamp. Consumers poll this file and treat
+  entry ids as permanent, so never reuse or change an existing id.
+-->
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Make IT Work</title>
+  <subtitle>Personal DevOps portal and self-hosted infrastructure updates</subtitle>
+  <id>tag:makeitwork.cloud,2026:feed</id>
+  <updated>2026-09-02T17:00:00Z</updated>
+  <link rel="alternate" href="https://makeitwork.cloud/" />
+  <link rel="self" href="https://makeitwork.cloud/feed.xml" />
+  <author>
+    <name>Make IT Work</name>
+  </author>
+  <entry>
+    <id>tag:makeitwork.cloud,2026-09-02:portal-live</id>
+    <title>Make IT Work portal is live</title>
+    <link rel="alternate" href="https://makeitwork.cloud/" />
+    <updated>2026-09-02T17:00:00Z</updated>
+    <summary>The Make IT Work personal DevOps portal is up, with pointers to the self-hosted stack behind makeitwork.cloud: Argo CD, Forgejo, Grafana, OpenCode, the status dashboard, and the onion-services directory.</summary>
+  </entry>
+</feed>
