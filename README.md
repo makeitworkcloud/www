@@ -17,6 +17,9 @@ the source directories are deployed as-is.
   service worker with an offline cache fallback for same-origin assets.
 - **Metadata:** The public portal includes standard Open Graph and Twitter
   metadata plus Schema.org JSON-LD.
+- **Feed:** `makeitwork.cloud/feed.xml` is a hand-maintained Atom feed of
+  site updates, advertised from the portal head for feed-reader discovery.
+  Entry ids are permanent tag URIs and must not be reused or changed.
 
 ## References
 
