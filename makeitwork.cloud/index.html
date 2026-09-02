@@ -901,7 +901,7 @@
 
         const isStandalone =
           window.matchMedia("(display-mode: standalone)").matches ||
-          window.standalone === true;
+          navigator.standalone === true;
         const dismissedAt = localStorage.getItem(DISMISSED_KEY);
         const wasDismissed =
           dismissedAt &&
