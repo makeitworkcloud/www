@@ -179,12 +179,18 @@
       }
 
       .koan-ornament {
-        width: 0.45rem;
-        height: 0.45rem;
-        border: 1px solid var(--border-strong);
-        border-radius: 50%;
-        box-sizing: border-box;
+        color: var(--text-faint);
+        display: block;
+        width: 1rem;
+        height: 1rem;
         flex: 0 0 auto;
+      }
+
+      .koan-ornament svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+        fill: currentColor;
       }
 
       .subheader {
@@ -624,7 +630,17 @@
       <h1 class="site-title" itemprop="name">MAKE IT WORK</h1>
       <div class="koan-rule" aria-hidden="true"></div>
       <div class="koan-copy">
-        <span class="koan-ornament" aria-hidden="true"></span>
+        <span class="koan-ornament" aria-hidden="true">
+          <svg viewBox="0 0 12 12" focusable="false" shape-rendering="crispEdges">
+            <rect x="1" y="1" width="3" height="3" />
+            <rect x="1" y="5" width="3" height="4" />
+            <rect x="4" y="6" width="2" height="1" />
+            <rect x="7" y="3" width="4" height="4" />
+            <rect x="8" y="4" width="2" height="2" fill="var(--bg)" />
+            <rect x="7" y="8" width="4" height="1" />
+            <rect x="6" y="10" width="6" height="1" />
+          </svg>
+        </span>
         <p class="subheader">
           Upon hearing this, the employee was enlightened.
         </p>
@@ -736,7 +752,7 @@
 
           <a
             class="resource"
-            href="https://opencode.makeitwork.cloud/L2hvbWUvb3BlbmNvZGU/session"
+            href="https://opencode.makeitwork.cloud/L2hvbWUvb3BlbmNvZGUvc2Vzc2lvbg=="
             title="OpenCode AI Coding Agent"
           >
             <i class="fa-solid fa-code resource-icon"></i>
