@@ -1,4 +1,4 @@
-const CACHE_NAME = 'miw-cache-v2';
+const CACHE_NAME = 'miw-cache-v3';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -10,8 +10,7 @@ const ASSETS_TO_CACHE = [
   '/favicon-32x32.png',
   '/apple-touch-icon.png',
   '/android-chrome-192x192.png',
-  '/android-chrome-512x512.png',
-  '/Web437_IBM_EGA_8x8.woff'
+  '/android-chrome-512x512.png'
 ];
 
 self.addEventListener('install', (event) => {
