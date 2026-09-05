@@ -170,8 +170,23 @@
         background: var(--border);
       }
 
-      .subheader {
+      .koan-copy {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.65rem;
         margin: 0.85rem auto 0;
+      }
+
+      .koan-ornament {
+        color: var(--text-faint);
+        font-family: ui-serif, Georgia, serif;
+        font-size: 1rem;
+        line-height: 1;
+      }
+
+      .subheader {
+        margin: 0;
         max-width: 34ch;
         padding: 0;
         color: var(--text-muted);
@@ -606,7 +621,11 @@
     <header class="cloud-header">
       <h1 class="site-title" itemprop="name">MAKE IT WORK</h1>
       <div class="koan-rule" aria-hidden="true"></div>
-      <p class="subheader">Upon hearing this, the employee was enlightened.</p>
+      <div class="koan-copy">
+        <span class="koan-ornament" aria-hidden="true">·</span>
+        <p class="subheader">Upon hearing this, the employee was enlightened.</p>
+        <span class="koan-ornament" aria-hidden="true">·</span>
+      </div>
     </header>
 
     <main class="portal">
