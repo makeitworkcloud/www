@@ -12,9 +12,7 @@ the source directories are deployed as-is.
   are adapted from the OpenCode web client dark theme: layered grey surfaces
   over a near-black page, white-alpha borders, and a blue accent. It does not
   use W3.CSS or Google Fonts.
-- **Fonts:** Inter and JetBrains Mono variable fonts are loaded from the
-  Fontsource CDN on jsDelivr with system-font fallbacks, matching the web
-  client's typography.
+- **Fonts:** Inter and JetBrains Mono are external UI/command fonts; the iconic IBM EGA 8x8 title font loads through an immutable jsDelivr URL pinned to the historical `www` revision.
 - **Icons:** Font Awesome 7.3.0 is loaded from cdnjs for portal and contact
   icons.
 - **Progressive web app:** `makeitwork.cloud/site.webmanifest` provides

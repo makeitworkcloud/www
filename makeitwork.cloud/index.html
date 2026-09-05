@@ -78,6 +78,15 @@
     />
     <style>
       @font-face {
+        font-family: "IBM EGA 8x8";
+        src: url("https://cdn.jsdelivr.net/gh/makeitworkcloud/www@fb71ee4457116153f38c1623a35c4ee8bd7130b5/makeitwork.cloud/Web437_IBM_EGA_8x8.woff")
+          format("woff");
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
         font-family: "Inter";
         src: url("https://cdn.jsdelivr.net/fontsource/fonts/inter:vf@5.3.0/latin-wght-normal.woff2")
           format("woff2-variations");
@@ -153,18 +162,38 @@
       }
 
       .subheader {
-        margin-top: 0.625rem;
-        font-size: 0.8125rem;
-        font-weight: 450;
+        margin: 0.75rem auto 0;
+        max-width: 36ch;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        font-weight: 400;
+        font-style: italic;
+        line-height: 1.8;
+        letter-spacing: 0.01em;
         color: var(--text-muted);
+        text-wrap: balance;
       }
 
       .site-title {
-        font-family: var(--font-sans);
-        font-size: clamp(1.75rem, 5vw, 2.25rem);
-        font-weight: 600;
-        letter-spacing: -0.02em;
-        color: var(--text);
+        font-family: "IBM EGA 8x8", monospace;
+        color: #8b7355;
+        font-size: 4rem;
+        font-weight: normal;
+        text-shadow: 3px 3px 0 #333;
+        letter-spacing: 0.1em;
+        animation: flicker 32s ease-in-out infinite;
+      }
+
+      @media (max-width: 600px) {
+        .site-title {
+          font-size: 2.5rem;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .site-title {
+          font-size: 24px;
+        }
       }
 
       .portal {
@@ -322,6 +351,72 @@
         }
       }
 
+      @keyframes flicker {
+        0% {
+          opacity: 0.75;
+        }
+        5% {
+          opacity: 0.85;
+        }
+        10% {
+          opacity: 0.7;
+        }
+        15% {
+          opacity: 0.95;
+        }
+        20% {
+          opacity: 0.8;
+        }
+        25% {
+          opacity: 0.88;
+        }
+        30% {
+          opacity: 0.72;
+        }
+        35% {
+          opacity: 1;
+        }
+        40% {
+          opacity: 0.78;
+        }
+        45% {
+          opacity: 0.68;
+        }
+        50% {
+          opacity: 0.9;
+        }
+        55% {
+          opacity: 0.76;
+        }
+        60% {
+          opacity: 1;
+        }
+        65% {
+          opacity: 0.82;
+        }
+        70% {
+          opacity: 0.7;
+        }
+        75% {
+          opacity: 0.92;
+        }
+        80% {
+          opacity: 0.74;
+        }
+        85% {
+          opacity: 0.86;
+        }
+        90% {
+          opacity: 0.71;
+        }
+        95% {
+          opacity: 0.96;
+        }
+        100% {
+          opacity: 0.75;
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .cloud-header,
         .portal {
@@ -335,6 +430,11 @@
         .install-btn,
         .install-dismiss {
           transition: none;
+        }
+
+        .site-title {
+          animation: none;
+          opacity: 1;
         }
       }
 
