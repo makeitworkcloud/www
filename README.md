@@ -1,7 +1,8 @@
 # Make IT Work web portal
 
 This repository contains the static content for `makeitwork.cloud` and
-`onion.makeitwork.cloud`. There is no application server or site build step;	he source directories are deployed as-is.
+`onion.makeitwork.cloud`. There is no application server or site build step;
+the source directories are deployed as-is.
 
 ## Technology
 
