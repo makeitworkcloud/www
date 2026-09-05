@@ -159,14 +159,37 @@
         flex-direction: column;
         align-items: center;
         width: 100%;
+        --koan-rule-width: 42rem;
+      }
+
+      .koan-rule {
+        width: var(--koan-rule-width);
+        max-width: 100%;
+        height: 1px;
+        margin: 1rem auto 0;
+        background: var(--border);
+      }
+
+      .koan-copy {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.65rem;
+        margin: 0.85rem auto 0;
+      }
+
+      .koan-ornament {
+        color: var(--text-faint);
+        font-family: ui-serif, Georgia, serif;
+        font-size: 1rem;
+        line-height: 1;
       }
 
       .subheader {
-        margin: 1rem auto 0;
+        margin: 0;
         max-width: 34ch;
-        padding: 0.85rem 1.25rem 0;
-        border-top: 1px solid rgba(139, 115, 85, 0.55);
-        color: #c4ad80;
+        padding: 0;
+        color: var(--text-muted);
         font-family: ui-serif, Georgia, serif;
         font-size: clamp(0.8rem, 0.75rem + 0.15vw, 0.95rem);
         font-weight: 400;
@@ -190,11 +213,19 @@
         .site-title {
           font-size: 2.5rem;
         }
+
+        .cloud-header {
+          --koan-rule-width: 26.5rem;
+        }
       }
 
       @media (max-width: 400px) {
         .site-title {
           font-size: 24px;
+        }
+
+        .cloud-header {
+          --koan-rule-width: 15.8rem;
         }
       }
 
@@ -589,7 +620,14 @@
   <body>
     <header class="cloud-header">
       <h1 class="site-title" itemprop="name">MAKE IT WORK</h1>
-      <p class="subheader">Upon hearing this, the employee was enlightened.</p>
+      <div class="koan-rule" aria-hidden="true"></div>
+      <div class="koan-copy">
+        <span class="koan-ornament" aria-hidden="true">·</span>
+        <p class="subheader">
+          Upon hearing this, the employee was enlightened.
+        </p>
+        <span class="koan-ornament" aria-hidden="true">·</span>
+      </div>
     </header>
 
     <main class="portal">
