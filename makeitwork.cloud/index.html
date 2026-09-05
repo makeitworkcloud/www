@@ -179,10 +179,9 @@
       }
 
       .koan-ornament {
-        color: var(--text-faint);
         display: block;
-        width: 1rem;
-        height: 1rem;
+        width: 2rem;
+        height: 2rem;
         flex: 0 0 auto;
       }
 
@@ -190,15 +189,19 @@
         display: block;
         width: 100%;
         height: 100%;
-        fill: currentColor;
       }
 
-      .koan-ornament .koan-person {
+      .koan-ornament .koan-skin {
         fill: var(--text-muted);
       }
 
-      .koan-ornament .koan-workstation {
+      .koan-ornament .koan-hair,
+      .koan-ornament .koan-clothes {
         fill: var(--text-faint);
+      }
+
+      .koan-ornament .koan-accent {
+        fill: var(--accent);
       }
 
       .koan-ornament .koan-cutout {
@@ -648,27 +651,35 @@
             focusable="false"
             shape-rendering="crispEdges"
           >
-            <g class="koan-person">
-              <rect x="1" y="2" width="6" height="3" />
-              <rect x="3" y="5" width="2" height="1" />
-              <rect x="2" y="6" width="4" height="4" />
-              <rect x="2" y="10" width="3" height="3" />
-              <rect x="5" y="7" width="2" height="1" />
-              <rect x="6" y="8" width="1" height="2" />
+            <g class="koan-hair">
+              <rect x="5" y="1" width="6" height="1" />
+              <rect x="4" y="2" width="8" height="2" />
+              <rect x="4" y="4" width="1" height="2" />
+              <rect x="11" y="4" width="1" height="2" />
             </g>
-            <g class="koan-workstation">
-              <rect x="2" y="1" width="4" height="1" />
-              <rect x="1" y="2" width="2" height="1" />
-              <rect x="10" y="3" width="5" height="4" />
-              <rect x="12" y="7" width="1" height="1" />
-              <rect x="8" y="8" width="7" height="1" />
-              <rect x="7" y="10" width="7" height="1" />
-              <rect x="1" y="13" width="5" height="1" />
+            <g class="koan-skin">
+              <rect x="5" y="3" width="6" height="5" />
+              <rect x="7" y="8" width="2" height="1" />
+            </g>
+            <g class="koan-clothes">
+              <rect x="4" y="9" width="8" height="4" />
+              <rect x="3" y="10" width="1" height="3" />
+              <rect x="12" y="10" width="1" height="3" />
+              <rect x="5" y="13" width="2" height="2" />
+              <rect x="9" y="13" width="2" height="2" />
+            </g>
+            <g class="koan-accent">
+              <rect x="3" y="5" width="1" height="3" />
+              <rect x="2" y="7" width="2" height="1" />
+              <rect x="2" y="8" width="1" height="1" />
+              <rect x="7" y="9" width="2" height="1" />
+              <rect x="8" y="10" width="1" height="2" />
+              <rect x="7" y="12" width="3" height="1" />
             </g>
             <g class="koan-cutout">
-              <rect x="2" y="3" width="1" height="1" />
-              <rect x="5" y="3" width="1" height="1" />
-              <rect x="11" y="4" width="3" height="2" />
+              <rect x="6" y="5" width="1" height="1" />
+              <rect x="9" y="5" width="1" height="1" />
+              <rect x="7" y="7" width="2" height="1" />
             </g>
           </svg>
         </span>
