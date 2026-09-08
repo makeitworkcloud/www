@@ -183,6 +183,11 @@
         width: 1rem;
         height: 2rem;
         flex: 0 0 auto;
+        padding: 0;
+        border: none;
+        background: none;
+        color: inherit;
+        cursor: pointer;
         animation: employeeFloat 2.8s ease-in-out infinite alternate;
       }
 
@@ -192,6 +197,7 @@
         height: 100%;
         overflow: hidden;
         image-rendering: pixelated;
+        transform-origin: 50% 100%;
       }
 
       .koan-ornament .koan-skin,
@@ -214,6 +220,10 @@
 
       .koan-ornament .koan-cutout {
         fill: var(--bg);
+      }
+
+      .koan-ornament.koan-celebrating svg {
+        animation: employeeCelebrate 280ms ease-out;
       }
 
       .subheader {
@@ -394,6 +404,7 @@
 
       .resource:focus-visible,
       .contact-icon:focus-visible,
+      .koan-ornament:focus-visible,
       .install-btn:focus-visible,
       .install-dismiss:focus-visible {
         outline: 2px solid var(--focus-ring);
@@ -421,6 +432,25 @@
         }
         to {
           transform: translateY(4px);
+        }
+      }
+
+      @keyframes employeeCelebrate {
+        0% {
+          transform: scale(1, 1);
+          filter: none;
+        }
+        30% {
+          transform: scale(1.15, 0.85);
+          filter: drop-shadow(0 0 4px var(--accent));
+        }
+        60% {
+          transform: scale(0.92, 1.1);
+          filter: drop-shadow(0 0 2px var(--accent));
+        }
+        100% {
+          transform: scale(1, 1);
+          filter: none;
         }
       }
 
@@ -499,6 +529,11 @@
 
         .koan-ornament {
           animation: none;
+        }
+
+        .koan-ornament.koan-celebrating svg {
+          animation: none;
+          filter: none;
         }
 
         .resource,
@@ -666,10 +701,16 @@
       <h1 class="site-title" itemprop="name">MAKE IT WORK</h1>
       <div class="koan-rule" aria-hidden="true"></div>
       <div class="koan-copy">
-        <span class="koan-ornament" aria-hidden="true">
+        <button
+          type="button"
+          class="koan-ornament"
+          id="koanOrnament"
+          aria-label="Celebrate enlightenment"
+        >
           <svg
             viewBox="0 0 16 32"
             focusable="false"
+            aria-hidden="true"
             shape-rendering="crispEdges"
           >
             <g class="koan-hair">
@@ -713,7 +754,7 @@
               <rect x="7" y="21" width="2" height="1" />
             </g>
           </svg>
-        </span>
+        </button>
         <p class="subheader">
           Upon hearing this, the employee was enlightened.
         </p>
@@ -925,7 +966,7 @@
         <a class="contact-icon" href="https://mega.nz/C!Kws3DD7J" title="MEGA"
           ><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path
-              d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm6 18h-3.5v-7.5L12 15l-2.5-4.5V18H6V6h3.5l2.5 4.5L14.5 6H18v12z"
+              d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12 12-5.373 12-12S18.627 0 12 0zm6 18h-3.5v-7.5L12 15l-2.5-4.5V18H6V6h3.5l2.5 4.5L14.5 6H18v12z"
             /></svg
         ></a>
         <a
@@ -965,6 +1006,31 @@
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("/sw.js").catch(() => {});
       }
+
+      (() => {
+        const ornament = document.getElementById("koanOrnament");
+        if (!ornament) return;
+        let celebrateTimer = null;
+
+        ornament.addEventListener("click", () => {
+          // Replay the one-shot effect: remove, force reflow, re-add.
+          ornament.classList.remove("koan-celebrating");
+          void ornament.offsetWidth;
+          ornament.classList.add("koan-celebrating");
+          clearTimeout(celebrateTimer);
+          celebrateTimer = setTimeout(
+            () => ornament.classList.remove("koan-celebrating"),
+            300,
+          );
+        });
+
+        ornament.addEventListener("animationend", (e) => {
+          if (e.animationName === "employeeCelebrate") {
+            ornament.classList.remove("koan-celebrating");
+            clearTimeout(celebrateTimer);
+          }
+        });
+      })();
 
       (() => {
         const banner = document.getElementById("installBanner");
