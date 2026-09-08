@@ -180,6 +180,7 @@
 
       .koan-ornament {
         display: block;
+        position: relative;
         width: 1rem;
         height: 2rem;
         flex: 0 0 auto;
@@ -189,6 +190,17 @@
         color: inherit;
         cursor: pointer;
         animation: employeeFloat 2.8s ease-in-out infinite alternate;
+      }
+
+      /* Transparent hit-area expansion: keeps the visible 16x32 sprite
+         unchanged while widening the pointer target to 24px. */
+      .koan-ornament::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -4px;
+        right: -4px;
       }
 
       .koan-ornament svg {
@@ -966,7 +978,7 @@
         <a class="contact-icon" href="https://mega.nz/C!Kws3DD7J" title="MEGA"
           ><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path
-              d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12 12-5.373 12-12S18.627 0 12 0zm6 18h-3.5v-7.5L12 15l-2.5-4.5V18H6V6h3.5l2.5 4.5L14.5 6H18v12z"
+              d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm6 18h-3.5v-7.5L12 15l-2.5-4.5V18H6V6h3.5l2.5 4.5L14.5 6H18v12z"
             /></svg
         ></a>
         <a
