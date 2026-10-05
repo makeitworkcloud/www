@@ -7,20 +7,14 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://makeitwork.cloud/sms.html</loc>
-    <lastmod>2026-09-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://makeitwork.cloud/privacy.html</loc>
-    <lastmod>2026-09-09</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://makeitwork.cloud/terms.html</loc>
-    <lastmod>2026-09-09</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
